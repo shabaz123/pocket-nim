@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ProjectConfig>
+    <ResourceReserve/>
+    <Solver>
+        <SolverBndMap>
+            <BindMap MUri="port/p/0/pad/15" Proxy="app/CPU_CTRL_XMC1/0/hwres_swd0_1"/>
+            <BindMap MUri="peripheral/cpu/0/exception/hardfault" Proxy="app/CPU_CTRL_XMC1/0/hwres_exception_hardfault"/>
+            <BindMap MUri="devicepackage/0/13" Proxy="app/DIGITAL_IO/6/__pin_hwres_port_pin"/>
+            <BindMap MUri="port/p/0/pad/14" Proxy="app/CPU_CTRL_XMC1/0/hwres_swd0_0"/>
+            <BindMap MUri="devicepackage/0/8" Proxy="app/I2C_MASTER/0/__pin_hwres_i2c_scl"/>
+            <BindMap MUri="peripheral/cpu/0/systick" Proxy="app/SYSTIMER/0/hwres_syst"/>
+            <BindMap MUri="port/p/2/pad/0" Proxy="app/DIGITAL_IO/4/hwres_port_pin"/>
+            <BindMap MUri="port/p/0/pad/6" Proxy="app/DIGITAL_IO/0/hwres_port_pin"/>
+            <BindMap MUri="port/p/0/pad/7" Proxy="app/DIGITAL_IO/1/hwres_port_pin"/>
+            <BindMap MUri="devicepackage/0/1" Proxy="app/DIGITAL_IO/4/__pin_hwres_port_pin"/>
+            <BindMap MUri="devicepackage/0/17" Proxy="app/DIGITAL_IO/0/__pin_hwres_port_pin"/>
+            <BindMap MUri="devicepackage/0/7" Proxy="app/I2C_MASTER/0/__pin_hwres_i2c_sda"/>
+            <BindMap MUri="port/p/2/pad/11" Proxy="app/I2C_MASTER/0/hwres_i2c_scl"/>
+            <BindMap MUri="peripheral/scu/0/gcu/ccu4_global_enable/0" Proxy="app/GLOBAL_CCU4/0/hwres_peripheral_scu_gcu_ccu4_global_enable"/>
+            <BindMap MUri="port/p/2/pad/6" Proxy="app/DIGITAL_IO/5/hwres_port_pin"/>
+            <BindMap MUri="peripheral/usic/0/channel/1" Proxy="app/I2C_MASTER/0/hwres_usic_channel"/>
+            <BindMap MUri="devicepackage/0/19" Proxy="app/DIGITAL_IO/2/__pin_hwres_port_pin"/>
+            <BindMap MUri="port/p/0/pad/5" Proxy="app/PWM_CCU4/0/hwres_port_channel_out"/>
+            <BindMap MUri="peripheral/scu/0/dco/2" Proxy="app/CLOCK_XMC1/0/hwres_dco"/>
+            <BindMap MUri="devicepackage/0/16" Proxy="app/PWM_CCU4/0/__pin_hwres_port_channel_out"/>
+            <BindMap MUri="port/p/1/pad/1" Proxy="app/DIGITAL_IO/6/hwres_port_pin"/>
+            <BindMap MUri="port/p/2/pad/10" Proxy="app/I2C_MASTER/0/hwres_i2c_sda"/>
+            <BindMap MUri="port/p/0/pad/8" Proxy="app/DIGITAL_IO/2/hwres_port_pin"/>
+            <BindMap MUri="devicepackage/0/4" Proxy="app/DIGITAL_IO/5/__pin_hwres_port_pin"/>
+            <BindMap MUri="peripheral/scu/0/ccu/config" Proxy="app/CLOCK_XMC1/0/hwres_clkcntrlunit"/>
+            <BindMap MUri="peripheral/cpu/0/nvic/interrupt/10" Proxy="app/I2C_MASTER/0/hwres_nvic_node_i2c_rx"/>
+            <BindMap MUri="peripheral/cpu/0/nvic/interrupt/11" Proxy="app/I2C_MASTER/0/hwres_nvic_node_i2c_tx"/>
+            <BindMap MUri="peripheral/ccu4/0/cc4/0" Proxy="app/PWM_CCU4/0/hwres_ccu4_cc4_slice"/>
+            <BindMap MUri="devicepackage/0/20" Proxy="app/DIGITAL_IO/3/__pin_hwres_port_pin"/>
+            <BindMap MUri="devicepackage/0/18" Proxy="app/DIGITAL_IO/1/__pin_hwres_port_pin"/>
+            <BindMap MUri="peripheral/ccu4/0/global" Proxy="app/GLOBAL_CCU4/0/hwres_peripheral_ccu4_global"/>
+            <BindMap MUri="port/p/0/pad/9" Proxy="app/DIGITAL_IO/3/hwres_port_pin"/>
+        </SolverBndMap>
+    </Solver>
+</ProjectConfig>

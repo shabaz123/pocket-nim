@@ -1,0 +1,31 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "systimer_conf.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .global sys_timer
+  18              	 .section .bss.sys_timer,"aw",%nobits
+  19              	 .align 2
+  22              	sys_timer:
+  23 0000 00       	 .space 1
+  24 0001 000000   	 .text
+  25              	.Letext0:
+  26              	 .file 1 "../Dave/Generated/SYSTIMER/systimer.h"
+  27              	 .file 2 "../Dave/Generated/SYSTIMER/systimer_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 systimer_conf.c
+    {standard input}:22     .bss.sys_timer:00000000 sys_timer
+    {standard input}:19     .bss.sys_timer:00000000 $d
+
+NO UNDEFINED SYMBOLS

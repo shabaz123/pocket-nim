@@ -1,0 +1,1800 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "nim_desktop.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .comm numsticks,5,4
+  18              	 .global level
+  19              	 .section .data.level,"aw",%progbits
+  22              	level:
+  23 0000 02       	 .byte 2
+  24              	 .global rows
+  25              	 .section .data.rows,"aw",%progbits
+  28              	rows:
+  29 0000 04       	 .byte 4
+  30              	 .global randreg
+  31              	 .section .data.randreg,"aw",%progbits
+  32              	 .align 1
+  35              	randreg:
+  36 0000 0100     	 .short 1
+  37              	 .global current_selection
+  38              	 .section .bss.current_selection,"aw",%nobits
+  41              	current_selection:
+  42 0000 00       	 .space 1
+  43              	 .section .text.random_num,"ax",%progbits
+  44              	 .align 2
+  45              	 .global random_num
+  46              	 .code 16
+  47              	 .thumb_func
+  49              	random_num:
+  50              	.LFB0:
+  51              	 .file 1 "../nim_desktop.c"
+   1:../nim_desktop.c **** /***********************************************************
+   2:../nim_desktop.c ****  * nim.c
+   3:../nim_desktop.c ****  * 
+   4:../nim_desktop.c ****  * This code is for a game where stick are arranged in rows.
+   5:../nim_desktop.c ****  * It is played by taking turns to remove any amount of sticks
+   6:../nim_desktop.c ****  * from any single row of your choice.
+   7:../nim_desktop.c ****  * The player who takes the last stick is the loser.
+   8:../nim_desktop.c ****  * This code is intended for microcontrollers, and the sticks
+   9:../nim_desktop.c ****  * could be LEDs, or some other display.
+  10:../nim_desktop.c ****  *
+  11:../nim_desktop.c ****  * rev 1.0 - August 2019 - shabaz
+  12:../nim_desktop.c ****  * Free for all non-commercial use
+  13:../nim_desktop.c ****  ***********************************************************/
+  14:../nim_desktop.c **** 
+  15:../nim_desktop.c **** #include <stdio.h>
+  16:../nim_desktop.c **** 
+  17:../nim_desktop.c **** /********* definitions *****************/
+  18:../nim_desktop.c **** // maximum possible rows containing sticks at the start of a game.
+  19:../nim_desktop.c **** // limit is 8, due to this code using unsigned chars in places
+  20:../nim_desktop.c **** #define MAXROWS 5
+  21:../nim_desktop.c **** 
+  22:../nim_desktop.c **** 
+  23:../nim_desktop.c **** /******** global variables **************/
+  24:../nim_desktop.c **** unsigned char numsticks[MAXROWS]; // this array holds the number of sticks in each row
+  25:../nim_desktop.c **** unsigned char level=2; // difficulty, 1-3. 3 is hardest. The easier levels can have less rows.
+  26:../nim_desktop.c **** unsigned char rows=4; // number of rows being played. Max is MAXROWS
+  27:../nim_desktop.c **** unsigned short int randreg=1; // this variable holds a random number
+  28:../nim_desktop.c **** unsigned char current_selection=0; // this variable stores what button was pressed
+  29:../nim_desktop.c **** 
+  30:../nim_desktop.c **** 
+  31:../nim_desktop.c **** /****************************************
+  32:../nim_desktop.c ****  * local functions
+  33:../nim_desktop.c ****  ****************************************/
+  34:../nim_desktop.c ****  
+  35:../nim_desktop.c **** /* random_num
+  36:../nim_desktop.c ****  * a random number generator
+  37:../nim_desktop.c ****  */
+  38:../nim_desktop.c **** unsigned char
+  39:../nim_desktop.c **** random_num(void)
+  40:../nim_desktop.c **** {
+  52              	 .loc 1 40 0
+  53              	 .cfi_startproc
+  54 0000 80B5     	 push {r7,lr}
+  55              	.LCFI0:
+  56              	 .cfi_def_cfa_offset 8
+  57              	 .cfi_offset 7,-8
+  58              	 .cfi_offset 14,-4
+  59 0002 82B0     	 sub sp,sp,#8
+  60              	.LCFI1:
+  61              	 .cfi_def_cfa_offset 16
+  62 0004 00AF     	 add r7,sp,#0
+  63              	.LCFI2:
+  64              	 .cfi_def_cfa_register 7
+  41:../nim_desktop.c ****   char i;
+  42:../nim_desktop.c ****   for (i=0; i<=7; i++)
+  65              	 .loc 1 42 0
+  66 0006 FB1D     	 add r3,r7,#7
+  67 0008 0022     	 mov r2,#0
+  68 000a 1A70     	 strb r2,[r3]
+  69 000c 24E0     	 b .L2
+  70              	.L3:
+  43:../nim_desktop.c ****   {
+  44:../nim_desktop.c ****     randreg ^= randreg>>7;
+  71              	 .loc 1 44 0 discriminator 3
+  72 000e 184B     	 ldr r3,.L5
+  73 0010 1B88     	 ldrh r3,[r3]
+  74 0012 DB09     	 lsr r3,r3,#7
+  75 0014 9AB2     	 uxth r2,r3
+  76 0016 164B     	 ldr r3,.L5
+  77 0018 1B88     	 ldrh r3,[r3]
+  78 001a 5340     	 eor r3,r2
+  79 001c 9AB2     	 uxth r2,r3
+  80 001e 144B     	 ldr r3,.L5
+  81 0020 1A80     	 strh r2,[r3]
+  45:../nim_desktop.c ****     randreg ^= randreg<<9;
+  82              	 .loc 1 45 0 discriminator 3
+  83 0022 134B     	 ldr r3,.L5
+  84 0024 1B88     	 ldrh r3,[r3]
+  85 0026 5B02     	 lsl r3,r3,#9
+  86 0028 9AB2     	 uxth r2,r3
+  87 002a 114B     	 ldr r3,.L5
+  88 002c 1B88     	 ldrh r3,[r3]
+  89 002e 9BB2     	 uxth r3,r3
+  90 0030 5340     	 eor r3,r2
+  91 0032 9BB2     	 uxth r3,r3
+  92 0034 9AB2     	 uxth r2,r3
+  93 0036 0E4B     	 ldr r3,.L5
+  94 0038 1A80     	 strh r2,[r3]
+  46:../nim_desktop.c ****     randreg ^= randreg>>13;
+  95              	 .loc 1 46 0 discriminator 3
+  96 003a 0D4B     	 ldr r3,.L5
+  97 003c 1B88     	 ldrh r3,[r3]
+  98 003e 5B0B     	 lsr r3,r3,#13
+  99 0040 9AB2     	 uxth r2,r3
+ 100 0042 0B4B     	 ldr r3,.L5
+ 101 0044 1B88     	 ldrh r3,[r3]
+ 102 0046 5340     	 eor r3,r2
+ 103 0048 9AB2     	 uxth r2,r3
+ 104 004a 094B     	 ldr r3,.L5
+ 105 004c 1A80     	 strh r2,[r3]
+  42:../nim_desktop.c ****   {
+ 106              	 .loc 1 42 0 discriminator 3
+ 107 004e FB1D     	 add r3,r7,#7
+ 108 0050 1A78     	 ldrb r2,[r3]
+ 109 0052 FB1D     	 add r3,r7,#7
+ 110 0054 0132     	 add r2,r2,#1
+ 111 0056 1A70     	 strb r2,[r3]
+ 112              	.L2:
+  42:../nim_desktop.c ****   {
+ 113              	 .loc 1 42 0 is_stmt 0 discriminator 1
+ 114 0058 FB1D     	 add r3,r7,#7
+ 115 005a 1B78     	 ldrb r3,[r3]
+ 116 005c 072B     	 cmp r3,#7
+ 117 005e D6D9     	 bls .L3
+  47:../nim_desktop.c ****   }
+  48:../nim_desktop.c ****   return(unsigned char)(randreg & 0xff);
+ 118              	 .loc 1 48 0 is_stmt 1
+ 119 0060 034B     	 ldr r3,.L5
+ 120 0062 1B88     	 ldrh r3,[r3]
+ 121 0064 DBB2     	 uxtb r3,r3
+  49:../nim_desktop.c **** }
+ 122              	 .loc 1 49 0
+ 123 0066 181C     	 mov r0,r3
+ 124 0068 BD46     	 mov sp,r7
+ 125 006a 02B0     	 add sp,sp,#8
+ 126              	 
+ 127 006c 80BD     	 pop {r7,pc}
+ 128              	.L6:
+ 129 006e C046     	 .align 2
+ 130              	.L5:
+ 131 0070 00000000 	 .word randreg
+ 132              	 .cfi_endproc
+ 133              	.LFE0:
+ 135              	 .section .text.setup_game,"ax",%progbits
+ 136              	 .align 2
+ 137              	 .global setup_game
+ 138              	 .code 16
+ 139              	 .thumb_func
+ 141              	setup_game:
+ 142              	.LFB1:
+  50:../nim_desktop.c **** 
+  51:../nim_desktop.c **** /* setup_game
+  52:../nim_desktop.c ****  * this function initializes the numsticks array, and the number of rows in the
+  53:../nim_desktop.c ****  * game, depending on difficulty level. */
+  54:../nim_desktop.c **** void
+  55:../nim_desktop.c **** setup_game(void)
+  56:../nim_desktop.c **** {
+ 143              	 .loc 1 56 0
+ 144              	 .cfi_startproc
+ 145 0000 90B5     	 push {r4,r7,lr}
+ 146              	.LCFI3:
+ 147              	 .cfi_def_cfa_offset 12
+ 148              	 .cfi_offset 4,-12
+ 149              	 .cfi_offset 7,-8
+ 150              	 .cfi_offset 14,-4
+ 151 0002 83B0     	 sub sp,sp,#12
+ 152              	.LCFI4:
+ 153              	 .cfi_def_cfa_offset 24
+ 154 0004 00AF     	 add r7,sp,#0
+ 155              	.LCFI5:
+ 156              	 .cfi_def_cfa_register 7
+  57:../nim_desktop.c ****   char i;
+  58:../nim_desktop.c ****   switch(level)
+ 157              	 .loc 1 58 0
+ 158 0006 2A4B     	 ldr r3,.L14
+ 159 0008 1B78     	 ldrb r3,[r3]
+ 160 000a 022B     	 cmp r3,#2
+ 161 000c 30D0     	 beq .L9
+ 162 000e 032B     	 cmp r3,#3
+ 163 0010 02D0     	 beq .L10
+ 164 0012 012B     	 cmp r3,#1
+ 165 0014 3CD0     	 beq .L11
+ 166 0016 48E0     	 b .L7
+ 167              	.L10:
+  59:../nim_desktop.c ****   {
+  60:../nim_desktop.c ****     case 3: // hardest. Random number of sticks in each row.
+  61:../nim_desktop.c ****       rows=4;
+ 168              	 .loc 1 61 0
+ 169 0018 264B     	 ldr r3,.L14+4
+ 170 001a 0422     	 mov r2,#4
+ 171 001c 1A70     	 strb r2,[r3]
+  62:../nim_desktop.c ****       for (i=0; i<rows; i++)
+ 172              	 .loc 1 62 0
+ 173 001e FB1D     	 add r3,r7,#7
+ 174 0020 0022     	 mov r2,#0
+ 175 0022 1A70     	 strb r2,[r3]
+ 176 0024 17E0     	 b .L12
+ 177              	.L13:
+  63:../nim_desktop.c ****       {
+  64:../nim_desktop.c ****         numsticks[i]=random_num() & 0x07;
+ 178              	 .loc 1 64 0 discriminator 3
+ 179 0026 FB1D     	 add r3,r7,#7
+ 180 0028 1C78     	 ldrb r4,[r3]
+ 181 002a FFF7FEFF 	 bl random_num
+ 182 002e 031C     	 mov r3,r0
+ 183 0030 1A1C     	 mov r2,r3
+ 184 0032 0723     	 mov r3,#7
+ 185 0034 1340     	 and r3,r2
+ 186 0036 DAB2     	 uxtb r2,r3
+ 187 0038 1F4B     	 ldr r3,.L14+8
+ 188 003a 1A55     	 strb r2,[r3,r4]
+  65:../nim_desktop.c ****         numsticks[i]++; // value is between 1 and 8
+ 189              	 .loc 1 65 0 discriminator 3
+ 190 003c FB1D     	 add r3,r7,#7
+ 191 003e 1B78     	 ldrb r3,[r3]
+ 192 0040 1D4A     	 ldr r2,.L14+8
+ 193 0042 D25C     	 ldrb r2,[r2,r3]
+ 194 0044 0132     	 add r2,r2,#1
+ 195 0046 D1B2     	 uxtb r1,r2
+ 196 0048 1B4A     	 ldr r2,.L14+8
+ 197 004a D154     	 strb r1,[r2,r3]
+  62:../nim_desktop.c ****       for (i=0; i<rows; i++)
+ 198              	 .loc 1 62 0 discriminator 3
+ 199 004c FB1D     	 add r3,r7,#7
+ 200 004e 1A78     	 ldrb r2,[r3]
+ 201 0050 FB1D     	 add r3,r7,#7
+ 202 0052 0132     	 add r2,r2,#1
+ 203 0054 1A70     	 strb r2,[r3]
+ 204              	.L12:
+  62:../nim_desktop.c ****       for (i=0; i<rows; i++)
+ 205              	 .loc 1 62 0 is_stmt 0 discriminator 1
+ 206 0056 174B     	 ldr r3,.L14+4
+ 207 0058 1B78     	 ldrb r3,[r3]
+ 208 005a FA1D     	 add r2,r7,#7
+ 209 005c 1278     	 ldrb r2,[r2]
+ 210 005e 9A42     	 cmp r2,r3
+ 211 0060 E1D3     	 bcc .L13
+  66:../nim_desktop.c ****       }
+  67:../nim_desktop.c ****       numsticks[0]++; // one row can have up to 9
+ 212              	 .loc 1 67 0 is_stmt 1
+ 213 0062 154B     	 ldr r3,.L14+8
+ 214 0064 1B78     	 ldrb r3,[r3]
+ 215 0066 0133     	 add r3,r3,#1
+ 216 0068 DAB2     	 uxtb r2,r3
+ 217 006a 134B     	 ldr r3,.L14+8
+ 218 006c 1A70     	 strb r2,[r3]
+  68:../nim_desktop.c ****       break;
+ 219              	 .loc 1 68 0
+ 220 006e 1CE0     	 b .L7
+ 221              	.L9:
+  69:../nim_desktop.c ****     case 2: // intermediate. Rows start with a pre-defined number of sticks.
+  70:../nim_desktop.c ****       rows=4;
+ 222              	 .loc 1 70 0
+ 223 0070 104B     	 ldr r3,.L14+4
+ 224 0072 0422     	 mov r2,#4
+ 225 0074 1A70     	 strb r2,[r3]
+  71:../nim_desktop.c ****       numsticks[3]=7;
+ 226              	 .loc 1 71 0
+ 227 0076 104B     	 ldr r3,.L14+8
+ 228 0078 0722     	 mov r2,#7
+ 229 007a DA70     	 strb r2,[r3,#3]
+  72:../nim_desktop.c ****       numsticks[2]=5;
+ 230              	 .loc 1 72 0
+ 231 007c 0E4B     	 ldr r3,.L14+8
+ 232 007e 0522     	 mov r2,#5
+ 233 0080 9A70     	 strb r2,[r3,#2]
+  73:../nim_desktop.c ****       numsticks[1]=3;
+ 234              	 .loc 1 73 0
+ 235 0082 0D4B     	 ldr r3,.L14+8
+ 236 0084 0322     	 mov r2,#3
+ 237 0086 5A70     	 strb r2,[r3,#1]
+  74:../nim_desktop.c ****       numsticks[0]=1;
+ 238              	 .loc 1 74 0
+ 239 0088 0B4B     	 ldr r3,.L14+8
+ 240 008a 0122     	 mov r2,#1
+ 241 008c 1A70     	 strb r2,[r3]
+  75:../nim_desktop.c ****       break;
+ 242              	 .loc 1 75 0
+ 243 008e 0CE0     	 b .L7
+ 244              	.L11:
+  76:../nim_desktop.c ****     case 1: // easy. Just three rows of pre-defined sticks.
+  77:../nim_desktop.c ****       rows=3;
+ 245              	 .loc 1 77 0
+ 246 0090 084B     	 ldr r3,.L14+4
+ 247 0092 0322     	 mov r2,#3
+ 248 0094 1A70     	 strb r2,[r3]
+  78:../nim_desktop.c ****       numsticks[2]=5;
+ 249              	 .loc 1 78 0
+ 250 0096 084B     	 ldr r3,.L14+8
+ 251 0098 0522     	 mov r2,#5
+ 252 009a 9A70     	 strb r2,[r3,#2]
+  79:../nim_desktop.c ****       numsticks[1]=3;
+ 253              	 .loc 1 79 0
+ 254 009c 064B     	 ldr r3,.L14+8
+ 255 009e 0322     	 mov r2,#3
+ 256 00a0 5A70     	 strb r2,[r3,#1]
+  80:../nim_desktop.c ****       numsticks[0]=1;
+ 257              	 .loc 1 80 0
+ 258 00a2 054B     	 ldr r3,.L14+8
+ 259 00a4 0122     	 mov r2,#1
+ 260 00a6 1A70     	 strb r2,[r3]
+  81:../nim_desktop.c ****       break;
+ 261              	 .loc 1 81 0
+ 262 00a8 C046     	 mov r8,r8
+ 263              	.L7:
+  82:../nim_desktop.c ****   }
+  83:../nim_desktop.c **** }
+ 264              	 .loc 1 83 0
+ 265 00aa BD46     	 mov sp,r7
+ 266 00ac 03B0     	 add sp,sp,#12
+ 267              	 
+ 268 00ae 90BD     	 pop {r4,r7,pc}
+ 269              	.L15:
+ 270              	 .align 2
+ 271              	.L14:
+ 272 00b0 00000000 	 .word level
+ 273 00b4 00000000 	 .word rows
+ 274 00b8 00000000 	 .word numsticks
+ 275              	 .cfi_endproc
+ 276              	.LFE1:
+ 278              	 .section .rodata
+ 279              	 .align 2
+ 280              	.LC5:
+ 281 0000 726F7720 	 .ascii "row to decrement? [1-%d] or [9]computer move: \000"
+ 281      746F2064 
+ 281      65637265 
+ 281      6D656E74 
+ 281      3F205B31 
+ 282 002f 00       	 .align 2
+ 283              	.LC7:
+ 284 0030 256400   	 .ascii "%d\000"
+ 285              	 .section .text.user_play,"ax",%progbits
+ 286              	 .align 2
+ 287              	 .global user_play
+ 288              	 .code 16
+ 289              	 .thumb_func
+ 291              	user_play:
+ 292              	.LFB2:
+  84:../nim_desktop.c **** 
+  85:../nim_desktop.c **** /* user_play
+  86:../nim_desktop.c ****  * updates the numsticks depending on button press. Returns 9 if
+  87:../nim_desktop.c ****  * it is time for the computer to make a move. */
+  88:../nim_desktop.c **** char
+  89:../nim_desktop.c **** user_play(void)
+  90:../nim_desktop.c **** {
+ 293              	 .loc 1 90 0
+ 294              	 .cfi_startproc
+ 295 0000 80B5     	 push {r7,lr}
+ 296              	.LCFI6:
+ 297              	 .cfi_def_cfa_offset 8
+ 298              	 .cfi_offset 7,-8
+ 299              	 .cfi_offset 14,-4
+ 300 0002 82B0     	 sub sp,sp,#8
+ 301              	.LCFI7:
+ 302              	 .cfi_def_cfa_offset 16
+ 303 0004 00AF     	 add r7,sp,#0
+ 304              	.LCFI8:
+ 305              	 .cfi_def_cfa_register 7
+  91:../nim_desktop.c ****   int selection;
+  92:../nim_desktop.c ****   printf("row to decrement? [1-%d] or [9]computer move: ", rows);
+ 306              	 .loc 1 92 0
+ 307 0006 1C4B     	 ldr r3,.L20
+ 308 0008 1B78     	 ldrb r3,[r3]
+ 309 000a 1A1C     	 mov r2,r3
+ 310 000c 1B4B     	 ldr r3,.L20+4
+ 311 000e 181C     	 mov r0,r3
+ 312 0010 111C     	 mov r1,r2
+ 313 0012 FFF7FEFF 	 bl printf
+  93:../nim_desktop.c ****   scanf("%d", &selection);
+ 314              	 .loc 1 93 0
+ 315 0016 1A4A     	 ldr r2,.L20+8
+ 316 0018 3B1D     	 add r3,r7,#4
+ 317 001a 101C     	 mov r0,r2
+ 318 001c 191C     	 mov r1,r3
+ 319 001e FFF7FEFF 	 bl scanf
+  94:../nim_desktop.c ****   if ((selection<=rows) && (selection>0)) // a row button was pressed
+ 320              	 .loc 1 94 0
+ 321 0022 154B     	 ldr r3,.L20
+ 322 0024 1B78     	 ldrb r3,[r3]
+ 323 0026 1A1E     	 sub r2,r3,#0
+ 324 0028 7B68     	 ldr r3,[r7,#4]
+ 325 002a 9A42     	 cmp r2,r3
+ 326 002c 1EDB     	 blt .L17
+ 327              	 .loc 1 94 0 is_stmt 0 discriminator 1
+ 328 002e 7B68     	 ldr r3,[r7,#4]
+ 329 0030 002B     	 cmp r3,#0
+ 330 0032 1BDD     	 ble .L17
+  95:../nim_desktop.c ****   {
+  96:../nim_desktop.c ****     // check that the user isn't trying to take sticks from other rows!
+  97:../nim_desktop.c ****     // once they have chosen a row, they have to stick with that row
+  98:../nim_desktop.c ****     if ((current_selection==0) || (current_selection==selection))
+ 331              	 .loc 1 98 0 is_stmt 1
+ 332 0034 134B     	 ldr r3,.L20+12
+ 333 0036 1B78     	 ldrb r3,[r3]
+ 334 0038 002B     	 cmp r3,#0
+ 335 003a 05D0     	 beq .L18
+ 336              	 .loc 1 98 0 is_stmt 0 discriminator 1
+ 337 003c 114B     	 ldr r3,.L20+12
+ 338 003e 1B78     	 ldrb r3,[r3]
+ 339 0040 1A1E     	 sub r2,r3,#0
+ 340 0042 7B68     	 ldr r3,[r7,#4]
+ 341 0044 9A42     	 cmp r2,r3
+ 342 0046 11D1     	 bne .L17
+ 343              	.L18:
+  99:../nim_desktop.c ****     {
+ 100:../nim_desktop.c ****       if (numsticks[selection-1]>0)
+ 344              	 .loc 1 100 0 is_stmt 1
+ 345 0048 7B68     	 ldr r3,[r7,#4]
+ 346 004a 013B     	 sub r3,r3,#1
+ 347 004c 0E4A     	 ldr r2,.L20+16
+ 348 004e D35C     	 ldrb r3,[r2,r3]
+ 349 0050 002B     	 cmp r3,#0
+ 350 0052 0BD0     	 beq .L17
+ 101:../nim_desktop.c ****       {
+ 102:../nim_desktop.c ****         numsticks[selection-1]--;
+ 351              	 .loc 1 102 0
+ 352 0054 7B68     	 ldr r3,[r7,#4]
+ 353 0056 013B     	 sub r3,r3,#1
+ 354 0058 0B4A     	 ldr r2,.L20+16
+ 355 005a D25C     	 ldrb r2,[r2,r3]
+ 356 005c 013A     	 sub r2,r2,#1
+ 357 005e D1B2     	 uxtb r1,r2
+ 358 0060 094A     	 ldr r2,.L20+16
+ 359 0062 D154     	 strb r1,[r2,r3]
+ 103:../nim_desktop.c ****         current_selection=selection;
+ 360              	 .loc 1 103 0
+ 361 0064 7B68     	 ldr r3,[r7,#4]
+ 362 0066 DAB2     	 uxtb r2,r3
+ 363 0068 064B     	 ldr r3,.L20+12
+ 364 006a 1A70     	 strb r2,[r3]
+ 365              	.L17:
+ 104:../nim_desktop.c ****       }
+ 105:../nim_desktop.c ****     }
+ 106:../nim_desktop.c ****   }
+ 107:../nim_desktop.c ****   return(selection);
+ 366              	 .loc 1 107 0
+ 367 006c 7B68     	 ldr r3,[r7,#4]
+ 368 006e DBB2     	 uxtb r3,r3
+ 108:../nim_desktop.c **** }
+ 369              	 .loc 1 108 0
+ 370 0070 181C     	 mov r0,r3
+ 371 0072 BD46     	 mov sp,r7
+ 372 0074 02B0     	 add sp,sp,#8
+ 373              	 
+ 374 0076 80BD     	 pop {r7,pc}
+ 375              	.L21:
+ 376              	 .align 2
+ 377              	.L20:
+ 378 0078 00000000 	 .word rows
+ 379 007c 00000000 	 .word .LC5
+ 380 0080 30000000 	 .word .LC7
+ 381 0084 00000000 	 .word current_selection
+ 382 0088 00000000 	 .word numsticks
+ 383              	 .cfi_endproc
+ 384              	.LFE2:
+ 386              	 .section .text.count_ones,"ax",%progbits
+ 387              	 .align 2
+ 388              	 .global count_ones
+ 389              	 .code 16
+ 390              	 .thumb_func
+ 392              	count_ones:
+ 393              	.LFB3:
+ 109:../nim_desktop.c **** 
+ 110:../nim_desktop.c **** /* count_ones
+ 111:../nim_desktop.c ****  * this function counts up how many binary digits are 1
+ 112:../nim_desktop.c ****  */
+ 113:../nim_desktop.c **** unsigned char
+ 114:../nim_desktop.c **** count_ones(unsigned char value)
+ 115:../nim_desktop.c **** {
+ 394              	 .loc 1 115 0
+ 395              	 .cfi_startproc
+ 396 0000 80B5     	 push {r7,lr}
+ 397              	.LCFI9:
+ 398              	 .cfi_def_cfa_offset 8
+ 399              	 .cfi_offset 7,-8
+ 400              	 .cfi_offset 14,-4
+ 401 0002 84B0     	 sub sp,sp,#16
+ 402              	.LCFI10:
+ 403              	 .cfi_def_cfa_offset 24
+ 404 0004 00AF     	 add r7,sp,#0
+ 405              	.LCFI11:
+ 406              	 .cfi_def_cfa_register 7
+ 407 0006 021C     	 mov r2,r0
+ 408 0008 FB1D     	 add r3,r7,#7
+ 409 000a 1A70     	 strb r2,[r3]
+ 116:../nim_desktop.c ****   char i;
+ 117:../nim_desktop.c ****   char sum=0;
+ 410              	 .loc 1 117 0
+ 411 000c 0E23     	 mov r3,#14
+ 412 000e FB18     	 add r3,r7,r3
+ 413 0010 0022     	 mov r2,#0
+ 414 0012 1A70     	 strb r2,[r3]
+ 118:../nim_desktop.c **** 
+ 119:../nim_desktop.c ****   for (i=0; i<8; i++)
+ 415              	 .loc 1 119 0
+ 416 0014 0F23     	 mov r3,#15
+ 417 0016 FB18     	 add r3,r7,r3
+ 418 0018 0022     	 mov r2,#0
+ 419 001a 1A70     	 strb r2,[r3]
+ 420 001c 17E0     	 b .L23
+ 421              	.L25:
+ 120:../nim_desktop.c ****   {
+ 121:../nim_desktop.c ****     if ((value & (1<<i)) != 0)
+ 422              	 .loc 1 121 0
+ 423 001e FB1D     	 add r3,r7,#7
+ 424 0020 1A78     	 ldrb r2,[r3]
+ 425 0022 0F23     	 mov r3,#15
+ 426 0024 FB18     	 add r3,r7,r3
+ 427 0026 1B78     	 ldrb r3,[r3]
+ 428 0028 1A41     	 asr r2,r2,r3
+ 429 002a 131C     	 mov r3,r2
+ 430 002c 0122     	 mov r2,#1
+ 431 002e 1340     	 and r3,r2
+ 432 0030 06D0     	 beq .L24
+ 122:../nim_desktop.c ****       sum++;
+ 433              	 .loc 1 122 0
+ 434 0032 0E23     	 mov r3,#14
+ 435 0034 FB18     	 add r3,r7,r3
+ 436 0036 1A78     	 ldrb r2,[r3]
+ 437 0038 0E23     	 mov r3,#14
+ 438 003a FB18     	 add r3,r7,r3
+ 439 003c 0132     	 add r2,r2,#1
+ 440 003e 1A70     	 strb r2,[r3]
+ 441              	.L24:
+ 119:../nim_desktop.c ****   {
+ 442              	 .loc 1 119 0 discriminator 2
+ 443 0040 0F23     	 mov r3,#15
+ 444 0042 FB18     	 add r3,r7,r3
+ 445 0044 1A78     	 ldrb r2,[r3]
+ 446 0046 0F23     	 mov r3,#15
+ 447 0048 FB18     	 add r3,r7,r3
+ 448 004a 0132     	 add r2,r2,#1
+ 449 004c 1A70     	 strb r2,[r3]
+ 450              	.L23:
+ 119:../nim_desktop.c ****   {
+ 451              	 .loc 1 119 0 is_stmt 0 discriminator 1
+ 452 004e 0F23     	 mov r3,#15
+ 453 0050 FB18     	 add r3,r7,r3
+ 454 0052 1B78     	 ldrb r3,[r3]
+ 455 0054 072B     	 cmp r3,#7
+ 456 0056 E2D9     	 bls .L25
+ 123:../nim_desktop.c ****   }
+ 124:../nim_desktop.c ****   return(sum);
+ 457              	 .loc 1 124 0 is_stmt 1
+ 458 0058 0E23     	 mov r3,#14
+ 459 005a FB18     	 add r3,r7,r3
+ 460 005c 1B78     	 ldrb r3,[r3]
+ 125:../nim_desktop.c **** }
+ 461              	 .loc 1 125 0
+ 462 005e 181C     	 mov r0,r3
+ 463 0060 BD46     	 mov sp,r7
+ 464 0062 04B0     	 add sp,sp,#16
+ 465              	 
+ 466 0064 80BD     	 pop {r7,pc}
+ 467              	 .cfi_endproc
+ 468              	.LFE3:
+ 470 0066 C046     	 .section .rodata
+ 471 0033 00       	 .align 2
+ 472              	.LC14:
+ 473 0034 783D2564 	 .ascii "x=%d\012\000"
+ 473      0A00
+ 474 003a 0000     	 .align 2
+ 475              	.LC16:
+ 476 003c 696E7465 	 .ascii "interim_xor are %d, %d, %d, %d\012\000"
+ 476      72696D5F 
+ 476      786F7220 
+ 476      61726520 
+ 476      25642C20 
+ 477              	 .align 2
+ 478              	.LC18:
+ 479 005c 6E756D5F 	 .ascii "num_playable_rows=%d\012\000"
+ 479      706C6179 
+ 479      61626C65 
+ 479      5F726F77 
+ 479      733D2564 
+ 480 0072 0000     	 .align 2
+ 481              	.LC20:
+ 482 0074 74657374 	 .ascii "testing candidate %d\012\000"
+ 482      696E6720 
+ 482      63616E64 
+ 482      69646174 
+ 482      65202564 
+ 483 008a 0000     	 .align 2
+ 484              	.LC22:
+ 485 008c 63616E64 	 .ascii "candidate %d quality is %d\012\000"
+ 485      69646174 
+ 485      65202564 
+ 485      20717561 
+ 485      6C697479 
+ 486              	 .align 2
+ 487              	.LC24:
+ 488 00a8 7175616C 	 .ascii "quality table: %d %d %d %d\012\000"
+ 488      69747920 
+ 488      7461626C 
+ 488      653A2025 
+ 488      64202564 
+ 489              	 .align 2
+ 490              	.LC26:
+ 491 00c4 66696E64 	 .ascii "finding highest quality move\000"
+ 491      696E6720 
+ 491      68696768 
+ 491      65737420 
+ 491      7175616C 
+ 492 00e1 000000   	 .align 2
+ 493              	.LC28:
+ 494 00e4 62657374 	 .ascii "best so far is candidate %d\012\000"
+ 494      20736F20 
+ 494      66617220 
+ 494      69732063 
+ 494      616E6469 
+ 495              	 .section .text.computer_play,"ax",%progbits
+ 496              	 .align 2
+ 497              	 .global computer_play
+ 498              	 .code 16
+ 499              	 .thumb_func
+ 501              	computer_play:
+ 502              	.LFB4:
+ 126:../nim_desktop.c **** 
+ 127:../nim_desktop.c **** 
+ 128:../nim_desktop.c **** /* computer_play
+ 129:../nim_desktop.c ****  * This function is the computer's algorithm, to try to beat the user.
+ 130:../nim_desktop.c ****  */
+ 131:../nim_desktop.c **** void
+ 132:../nim_desktop.c **** computer_play(void)
+ 133:../nim_desktop.c **** {
+ 503              	 .loc 1 133 0
+ 504              	 .cfi_startproc
+ 505 0000 B0B5     	 push {r4,r5,r7,lr}
+ 506              	.LCFI12:
+ 507              	 .cfi_def_cfa_offset 16
+ 508              	 .cfi_offset 4,-16
+ 509              	 .cfi_offset 5,-12
+ 510              	 .cfi_offset 7,-8
+ 511              	 .cfi_offset 14,-4
+ 512 0002 8CB0     	 sub sp,sp,#48
+ 513              	.LCFI13:
+ 514              	 .cfi_def_cfa_offset 64
+ 515 0004 02AF     	 add r7,sp,#8
+ 516              	.LCFI14:
+ 517              	 .cfi_def_cfa 7,56
+ 134:../nim_desktop.c ****   unsigned char x=numsticks[0]; // x is the variable X in the Wikipedia article for Nim
+ 518              	 .loc 1 134 0
+ 519 0006 2723     	 mov r3,#39
+ 520 0008 FB18     	 add r3,r7,r3
+ 521 000a E44A     	 ldr r2,.L62
+ 522 000c 1278     	 ldrb r2,[r2]
+ 523 000e 1A70     	 strb r2,[r3]
+ 135:../nim_desktop.c ****   unsigned char interim_xor[MAXROWS]; // this array holds "the nim-sum of X and heap-size" for each
+ 136:../nim_desktop.c ****   unsigned char playable_rows_bitmap=0;
+ 524              	 .loc 1 136 0
+ 525 0010 2623     	 mov r3,#38
+ 526 0012 FB18     	 add r3,r7,r3
+ 527 0014 0022     	 mov r2,#0
+ 528 0016 1A70     	 strb r2,[r3]
+ 137:../nim_desktop.c ****   unsigned char num_playable_rows=0;
+ 529              	 .loc 1 137 0
+ 530 0018 1923     	 mov r3,#25
+ 531 001a FB18     	 add r3,r7,r3
+ 532 001c 0022     	 mov r2,#0
+ 533 001e 1A70     	 strb r2,[r3]
+ 138:../nim_desktop.c ****   unsigned char rows_remaining=0;
+ 534              	 .loc 1 138 0
+ 535 0020 1823     	 mov r3,#24
+ 536 0022 FB18     	 add r3,r7,r3
+ 537 0024 0022     	 mov r2,#0
+ 538 0026 1A70     	 strb r2,[r3]
+ 139:../nim_desktop.c ****   unsigned char candidatemask=0;
+ 539              	 .loc 1 139 0
+ 540 0028 1723     	 mov r3,#23
+ 541 002a FB18     	 add r3,r7,r3
+ 542 002c 0022     	 mov r2,#0
+ 543 002e 1A70     	 strb r2,[r3]
+ 140:../nim_desktop.c ****   unsigned char candidate[MAXROWS]; // this array holds an idea for the the number of sticks to lea
+ 141:../nim_desktop.c ****   unsigned char quality[MAXROWS]; // a quality value (higher is better) for how good the candidate 
+ 142:../nim_desktop.c ****   unsigned char peak_quality=0;
+ 544              	 .loc 1 142 0
+ 545 0030 2523     	 mov r3,#37
+ 546 0032 FB18     	 add r3,r7,r3
+ 547 0034 0022     	 mov r2,#0
+ 548 0036 1A70     	 strb r2,[r3]
+ 143:../nim_desktop.c ****   unsigned char peak_candidate=0;
+ 549              	 .loc 1 143 0
+ 550 0038 2423     	 mov r3,#36
+ 551 003a FB18     	 add r3,r7,r3
+ 552 003c 0022     	 mov r2,#0
+ 553 003e 1A70     	 strb r2,[r3]
+ 144:../nim_desktop.c ****   unsigned char unitychecknotneeded=0; // we need to check how many rows have only one stick remain
+ 554              	 .loc 1 144 0
+ 555 0040 2323     	 mov r3,#35
+ 556 0042 FB18     	 add r3,r7,r3
+ 557 0044 0022     	 mov r2,#0
+ 558 0046 1A70     	 strb r2,[r3]
+ 145:../nim_desktop.c ****   
+ 146:../nim_desktop.c ****   int i;
+ 147:../nim_desktop.c ****   char j, k, temp, nomove;
+ 148:../nim_desktop.c ****   char unityheaps=0;
+ 559              	 .loc 1 148 0
+ 560 0048 1A23     	 mov r3,#26
+ 561 004a FB18     	 add r3,r7,r3
+ 562 004c 0022     	 mov r2,#0
+ 563 004e 1A70     	 strb r2,[r3]
+ 149:../nim_desktop.c ****   
+ 150:../nim_desktop.c ****   // now the computer is playing. Reset the button selection for the user,
+ 151:../nim_desktop.c ****   // so that when it is their turn, they will be free to choose any row.
+ 152:../nim_desktop.c ****   current_selection=0;
+ 564              	 .loc 1 152 0
+ 565 0050 D34B     	 ldr r3,.L62+4
+ 566 0052 0022     	 mov r2,#0
+ 567 0054 1A70     	 strb r2,[r3]
+ 153:../nim_desktop.c ****   
+ 154:../nim_desktop.c ****   for (i=0; i<MAXROWS; i++)
+ 568              	 .loc 1 154 0
+ 569 0056 0023     	 mov r3,#0
+ 570 0058 FB61     	 str r3,[r7,#28]
+ 571 005a 07E0     	 b .L28
+ 572              	.L29:
+ 155:../nim_desktop.c ****   {
+ 156:../nim_desktop.c ****     quality[i]=0; // initialize the quality array
+ 573              	 .loc 1 156 0 discriminator 3
+ 574 005c 3A1C     	 mov r2,r7
+ 575 005e FB69     	 ldr r3,[r7,#28]
+ 576 0060 D318     	 add r3,r2,r3
+ 577 0062 0022     	 mov r2,#0
+ 578 0064 1A70     	 strb r2,[r3]
+ 154:../nim_desktop.c ****   {
+ 579              	 .loc 1 154 0 discriminator 3
+ 580 0066 FB69     	 ldr r3,[r7,#28]
+ 581 0068 0133     	 add r3,r3,#1
+ 582 006a FB61     	 str r3,[r7,#28]
+ 583              	.L28:
+ 154:../nim_desktop.c ****   {
+ 584              	 .loc 1 154 0 is_stmt 0 discriminator 1
+ 585 006c FB69     	 ldr r3,[r7,#28]
+ 586 006e 042B     	 cmp r3,#4
+ 587 0070 F4DD     	 ble .L29
+ 157:../nim_desktop.c ****   }
+ 158:../nim_desktop.c ****   
+ 159:../nim_desktop.c ****   // find the best possible move, using the sum of
+ 160:../nim_desktop.c ****   // powers of two method, which is basically a 
+ 161:../nim_desktop.c ****   // lot of XORing
+ 162:../nim_desktop.c ****   for (i=1; i<rows; i++)
+ 588              	 .loc 1 162 0 is_stmt 1
+ 589 0072 0123     	 mov r3,#1
+ 590 0074 FB61     	 str r3,[r7,#28]
+ 591 0076 0DE0     	 b .L30
+ 592              	.L31:
+ 163:../nim_desktop.c ****   {
+ 164:../nim_desktop.c ****     x=x^numsticks[i];
+ 593              	 .loc 1 164 0 discriminator 3
+ 594 0078 C84A     	 ldr r2,.L62
+ 595 007a FB69     	 ldr r3,[r7,#28]
+ 596 007c D318     	 add r3,r2,r3
+ 597 007e 1978     	 ldrb r1,[r3]
+ 598 0080 2723     	 mov r3,#39
+ 599 0082 FB18     	 add r3,r7,r3
+ 600 0084 2722     	 mov r2,#39
+ 601 0086 BA18     	 add r2,r7,r2
+ 602 0088 1278     	 ldrb r2,[r2]
+ 603 008a 4A40     	 eor r2,r1
+ 604 008c 1A70     	 strb r2,[r3]
+ 162:../nim_desktop.c ****   {
+ 605              	 .loc 1 162 0 discriminator 3
+ 606 008e FB69     	 ldr r3,[r7,#28]
+ 607 0090 0133     	 add r3,r3,#1
+ 608 0092 FB61     	 str r3,[r7,#28]
+ 609              	.L30:
+ 162:../nim_desktop.c ****   {
+ 610              	 .loc 1 162 0 is_stmt 0 discriminator 1
+ 611 0094 C34B     	 ldr r3,.L62+8
+ 612 0096 1B78     	 ldrb r3,[r3]
+ 613 0098 1A1E     	 sub r2,r3,#0
+ 614 009a FB69     	 ldr r3,[r7,#28]
+ 615 009c 9A42     	 cmp r2,r3
+ 616 009e EBDC     	 bgt .L31
+ 165:../nim_desktop.c ****   }
+ 166:../nim_desktop.c ****   printf("x=%d\n", x);
+ 617              	 .loc 1 166 0 is_stmt 1
+ 618 00a0 2723     	 mov r3,#39
+ 619 00a2 FB18     	 add r3,r7,r3
+ 620 00a4 1B78     	 ldrb r3,[r3]
+ 621 00a6 C04A     	 ldr r2,.L62+12
+ 622 00a8 101C     	 mov r0,r2
+ 623 00aa 191C     	 mov r1,r3
+ 624 00ac FFF7FEFF 	 bl printf
+ 167:../nim_desktop.c ****   if (x>0)   
+ 625              	 .loc 1 167 0
+ 626 00b0 2723     	 mov r3,#39
+ 627 00b2 FB18     	 add r3,r7,r3
+ 628 00b4 1B78     	 ldrb r3,[r3]
+ 629 00b6 002B     	 cmp r3,#0
+ 630 00b8 00D1     	 bne .LCB501
+ 631 00ba D3E1     	 b .L32
+ 632              	.LCB501:
+ 168:../nim_desktop.c ****   {
+ 169:../nim_desktop.c ****     for (i=0; i<rows; i++)
+ 633              	 .loc 1 169 0
+ 634 00bc 0023     	 mov r3,#0
+ 635 00be FB61     	 str r3,[r7,#28]
+ 636 00c0 29E0     	 b .L33
+ 637              	.L35:
+ 170:../nim_desktop.c ****     {
+ 171:../nim_desktop.c ****       interim_xor[i]=x^numsticks[i];
+ 638              	 .loc 1 171 0
+ 639 00c2 B64A     	 ldr r2,.L62
+ 640 00c4 FB69     	 ldr r3,[r7,#28]
+ 641 00c6 D318     	 add r3,r2,r3
+ 642 00c8 1A78     	 ldrb r2,[r3]
+ 643 00ca 2723     	 mov r3,#39
+ 644 00cc FB18     	 add r3,r7,r3
+ 645 00ce 1B78     	 ldrb r3,[r3]
+ 646 00d0 5340     	 eor r3,r2
+ 647 00d2 D9B2     	 uxtb r1,r3
+ 648 00d4 1023     	 mov r3,#16
+ 649 00d6 FA18     	 add r2,r7,r3
+ 650 00d8 FB69     	 ldr r3,[r7,#28]
+ 651 00da D318     	 add r3,r2,r3
+ 652 00dc 0A1C     	 add r2,r1,#0
+ 653 00de 1A70     	 strb r2,[r3]
+ 172:../nim_desktop.c ****       if (interim_xor[i]<numsticks[i])
+ 654              	 .loc 1 172 0
+ 655 00e0 1023     	 mov r3,#16
+ 656 00e2 FA18     	 add r2,r7,r3
+ 657 00e4 FB69     	 ldr r3,[r7,#28]
+ 658 00e6 D318     	 add r3,r2,r3
+ 659 00e8 1A78     	 ldrb r2,[r3]
+ 660 00ea AC49     	 ldr r1,.L62
+ 661 00ec FB69     	 ldr r3,[r7,#28]
+ 662 00ee CB18     	 add r3,r1,r3
+ 663 00f0 1B78     	 ldrb r3,[r3]
+ 664 00f2 9A42     	 cmp r2,r3
+ 665 00f4 0CD2     	 bcs .L34
+ 173:../nim_desktop.c ****       {
+ 174:../nim_desktop.c ****         playable_rows_bitmap |= 1<<i;
+ 666              	 .loc 1 174 0
+ 667 00f6 0122     	 mov r2,#1
+ 668 00f8 FB69     	 ldr r3,[r7,#28]
+ 669 00fa 9A40     	 lsl r2,r2,r3
+ 670 00fc 131C     	 mov r3,r2
+ 671 00fe DAB2     	 uxtb r2,r3
+ 672 0100 2623     	 mov r3,#38
+ 673 0102 FB18     	 add r3,r7,r3
+ 674 0104 1B78     	 ldrb r3,[r3]
+ 675 0106 1343     	 orr r3,r2
+ 676 0108 DAB2     	 uxtb r2,r3
+ 677 010a 2623     	 mov r3,#38
+ 678 010c FB18     	 add r3,r7,r3
+ 679 010e 1A70     	 strb r2,[r3]
+ 680              	.L34:
+ 169:../nim_desktop.c ****     {
+ 681              	 .loc 1 169 0 discriminator 2
+ 682 0110 FB69     	 ldr r3,[r7,#28]
+ 683 0112 0133     	 add r3,r3,#1
+ 684 0114 FB61     	 str r3,[r7,#28]
+ 685              	.L33:
+ 169:../nim_desktop.c ****     {
+ 686              	 .loc 1 169 0 is_stmt 0 discriminator 1
+ 687 0116 A34B     	 ldr r3,.L62+8
+ 688 0118 1B78     	 ldrb r3,[r3]
+ 689 011a 1A1E     	 sub r2,r3,#0
+ 690 011c FB69     	 ldr r3,[r7,#28]
+ 691 011e 9A42     	 cmp r2,r3
+ 692 0120 CFDC     	 bgt .L35
+ 175:../nim_desktop.c ****       }
+ 176:../nim_desktop.c ****     }
+ 177:../nim_desktop.c ****     printf("interim_xor are %d, %d, %d, %d\n", interim_xor[0], interim_xor[1], interim_xor[2], inte
+ 693              	 .loc 1 177 0 is_stmt 1
+ 694 0122 1023     	 mov r3,#16
+ 695 0124 FB18     	 add r3,r7,r3
+ 696 0126 1B78     	 ldrb r3,[r3]
+ 697 0128 191C     	 mov r1,r3
+ 698 012a 1023     	 mov r3,#16
+ 699 012c FB18     	 add r3,r7,r3
+ 700 012e 5B78     	 ldrb r3,[r3,#1]
+ 701 0130 1D1C     	 mov r5,r3
+ 702 0132 1023     	 mov r3,#16
+ 703 0134 FB18     	 add r3,r7,r3
+ 704 0136 9B78     	 ldrb r3,[r3,#2]
+ 705 0138 1C1C     	 mov r4,r3
+ 706 013a 1023     	 mov r3,#16
+ 707 013c FB18     	 add r3,r7,r3
+ 708 013e DB78     	 ldrb r3,[r3,#3]
+ 709 0140 1A1C     	 mov r2,r3
+ 710 0142 9A4B     	 ldr r3,.L62+16
+ 711 0144 0092     	 str r2,[sp]
+ 712 0146 181C     	 mov r0,r3
+ 713 0148 2A1C     	 mov r2,r5
+ 714 014a 231C     	 mov r3,r4
+ 715 014c FFF7FEFF 	 bl printf
+ 178:../nim_desktop.c ****     num_playable_rows=count_ones(playable_rows_bitmap);
+ 716              	 .loc 1 178 0
+ 717 0150 1923     	 mov r3,#25
+ 718 0152 FC18     	 add r4,r7,r3
+ 719 0154 2623     	 mov r3,#38
+ 720 0156 FB18     	 add r3,r7,r3
+ 721 0158 1B78     	 ldrb r3,[r3]
+ 722 015a 181C     	 mov r0,r3
+ 723 015c FFF7FEFF 	 bl count_ones
+ 724 0160 031C     	 mov r3,r0
+ 725 0162 2370     	 strb r3,[r4]
+ 179:../nim_desktop.c ****     printf("num_playable_rows=%d\n", num_playable_rows);
+ 726              	 .loc 1 179 0
+ 727 0164 1923     	 mov r3,#25
+ 728 0166 FB18     	 add r3,r7,r3
+ 729 0168 1B78     	 ldrb r3,[r3]
+ 730 016a 914A     	 ldr r2,.L62+20
+ 731 016c 101C     	 mov r0,r2
+ 732 016e 191C     	 mov r1,r3
+ 733 0170 FFF7FEFF 	 bl printf
+ 180:../nim_desktop.c ****     if (num_playable_rows>=1)
+ 734              	 .loc 1 180 0
+ 735 0174 1923     	 mov r3,#25
+ 736 0176 FB18     	 add r3,r7,r3
+ 737 0178 1B78     	 ldrb r3,[r3]
+ 738 017a 002B     	 cmp r3,#0
+ 739 017c 00D1     	 bne .LCB602
+ 740 017e 50E1     	 b .L36
+ 741              	.LCB602:
+ 181:../nim_desktop.c ****     {
+ 182:../nim_desktop.c ****       // overall strategy: find some possible moves, and give them a weight
+ 183:../nim_desktop.c ****       // and then we'll pick the best of the lot.
+ 184:../nim_desktop.c ****       for (i=rows-1; i>=0; i--)
+ 742              	 .loc 1 184 0
+ 743 0180 884B     	 ldr r3,.L62+8
+ 744 0182 1B78     	 ldrb r3,[r3]
+ 745 0184 013B     	 sub r3,r3,#1
+ 746 0186 FB61     	 str r3,[r7,#28]
+ 747 0188 E9E0     	 b .L37
+ 748              	.L51:
+ 185:../nim_desktop.c ****       {
+ 186:../nim_desktop.c ****         if ((playable_rows_bitmap & (1<<i)) != 0) // i is a playable row
+ 749              	 .loc 1 186 0
+ 750 018a 2623     	 mov r3,#38
+ 751 018c FB18     	 add r3,r7,r3
+ 752 018e 1A78     	 ldrb r2,[r3]
+ 753 0190 FB69     	 ldr r3,[r7,#28]
+ 754 0192 1A41     	 asr r2,r2,r3
+ 755 0194 131C     	 mov r3,r2
+ 756 0196 0122     	 mov r2,#1
+ 757 0198 1340     	 and r3,r2
+ 758 019a 00D1     	 bne .LCB620
+ 759 019c DCE0     	 b .L38
+ 760              	.LCB620:
+ 187:../nim_desktop.c ****         {
+ 188:../nim_desktop.c ****           unitychecknotneeded=0;
+ 761              	 .loc 1 188 0
+ 762 019e 2323     	 mov r3,#35
+ 763 01a0 FB18     	 add r3,r7,r3
+ 764 01a2 0022     	 mov r2,#0
+ 765 01a4 1A70     	 strb r2,[r3]
+ 189:../nim_desktop.c ****           printf("testing candidate %d\n", i);
+ 766              	 .loc 1 189 0
+ 767 01a6 834A     	 ldr r2,.L62+24
+ 768 01a8 FB69     	 ldr r3,[r7,#28]
+ 769 01aa 101C     	 mov r0,r2
+ 770 01ac 191C     	 mov r1,r3
+ 771 01ae FFF7FEFF 	 bl printf
+ 190:../nim_desktop.c ****           temp=interim_xor[i]; // reduce size of heap to XOR of its original size with x
+ 772              	 .loc 1 190 0
+ 773 01b2 1623     	 mov r3,#22
+ 774 01b4 FB18     	 add r3,r7,r3
+ 775 01b6 1022     	 mov r2,#16
+ 776 01b8 B918     	 add r1,r7,r2
+ 777 01ba FA69     	 ldr r2,[r7,#28]
+ 778 01bc 8A18     	 add r2,r1,r2
+ 779 01be 1278     	 ldrb r2,[r2]
+ 780 01c0 1A70     	 strb r2,[r3]
+ 191:../nim_desktop.c ****           // if we make the temp move real, will it leave only heaps with size 1?
+ 192:../nim_desktop.c **** 
+ 193:../nim_desktop.c ****           if (temp==1)
+ 781              	 .loc 1 193 0
+ 782 01c2 1623     	 mov r3,#22
+ 783 01c4 FB18     	 add r3,r7,r3
+ 784 01c6 1B78     	 ldrb r3,[r3]
+ 785 01c8 012B     	 cmp r3,#1
+ 786 01ca 06D1     	 bne .L39
+ 194:../nim_desktop.c ****             unityheaps++;
+ 787              	 .loc 1 194 0
+ 788 01cc 1A23     	 mov r3,#26
+ 789 01ce FB18     	 add r3,r7,r3
+ 790 01d0 1A78     	 ldrb r2,[r3]
+ 791 01d2 1A23     	 mov r3,#26
+ 792 01d4 FB18     	 add r3,r7,r3
+ 793 01d6 0132     	 add r2,r2,#1
+ 794 01d8 1A70     	 strb r2,[r3]
+ 795              	.L39:
+ 195:../nim_desktop.c ****           for (j=0; j<rows; j++)
+ 796              	 .loc 1 195 0
+ 797 01da 1B23     	 mov r3,#27
+ 798 01dc FB18     	 add r3,r7,r3
+ 799 01de 0022     	 mov r2,#0
+ 800 01e0 1A70     	 strb r2,[r3]
+ 801 01e2 26E0     	 b .L40
+ 802              	.L43:
+ 196:../nim_desktop.c ****           {
+ 197:../nim_desktop.c ****             if (j!=i)
+ 803              	 .loc 1 197 0
+ 804 01e4 1B23     	 mov r3,#27
+ 805 01e6 FB18     	 add r3,r7,r3
+ 806 01e8 1A78     	 ldrb r2,[r3]
+ 807 01ea FB69     	 ldr r3,[r7,#28]
+ 808 01ec 9A42     	 cmp r2,r3
+ 809 01ee 19D0     	 beq .L41
+ 198:../nim_desktop.c ****             {
+ 199:../nim_desktop.c ****               if (numsticks[j]==1)
+ 810              	 .loc 1 199 0
+ 811 01f0 1B23     	 mov r3,#27
+ 812 01f2 FB18     	 add r3,r7,r3
+ 813 01f4 1B78     	 ldrb r3,[r3]
+ 814 01f6 694A     	 ldr r2,.L62
+ 815 01f8 D35C     	 ldrb r3,[r2,r3]
+ 816 01fa 012B     	 cmp r3,#1
+ 817 01fc 07D1     	 bne .L42
+ 200:../nim_desktop.c ****               {
+ 201:../nim_desktop.c ****                 unityheaps++;
+ 818              	 .loc 1 201 0
+ 819 01fe 1A23     	 mov r3,#26
+ 820 0200 FB18     	 add r3,r7,r3
+ 821 0202 1A78     	 ldrb r2,[r3]
+ 822 0204 1A23     	 mov r3,#26
+ 823 0206 FB18     	 add r3,r7,r3
+ 824 0208 0132     	 add r2,r2,#1
+ 825 020a 1A70     	 strb r2,[r3]
+ 826 020c 0AE0     	 b .L41
+ 827              	.L42:
+ 202:../nim_desktop.c ****               }
+ 203:../nim_desktop.c ****               else if (numsticks[j]>1)
+ 828              	 .loc 1 203 0
+ 829 020e 1B23     	 mov r3,#27
+ 830 0210 FB18     	 add r3,r7,r3
+ 831 0212 1B78     	 ldrb r3,[r3]
+ 832 0214 614A     	 ldr r2,.L62
+ 833 0216 D35C     	 ldrb r3,[r2,r3]
+ 834 0218 012B     	 cmp r3,#1
+ 835 021a 03D9     	 bls .L41
+ 204:../nim_desktop.c ****               {
+ 205:../nim_desktop.c ****                 unitychecknotneeded=1;
+ 836              	 .loc 1 205 0
+ 837 021c 2323     	 mov r3,#35
+ 838 021e FB18     	 add r3,r7,r3
+ 839 0220 0122     	 mov r2,#1
+ 840 0222 1A70     	 strb r2,[r3]
+ 841              	.L41:
+ 195:../nim_desktop.c ****           {
+ 842              	 .loc 1 195 0 discriminator 2
+ 843 0224 1B23     	 mov r3,#27
+ 844 0226 FB18     	 add r3,r7,r3
+ 845 0228 1A78     	 ldrb r2,[r3]
+ 846 022a 1B23     	 mov r3,#27
+ 847 022c FB18     	 add r3,r7,r3
+ 848 022e 0132     	 add r2,r2,#1
+ 849 0230 1A70     	 strb r2,[r3]
+ 850              	.L40:
+ 195:../nim_desktop.c ****           {
+ 851              	 .loc 1 195 0 is_stmt 0 discriminator 1
+ 852 0232 5C4B     	 ldr r3,.L62+8
+ 853 0234 1B78     	 ldrb r3,[r3]
+ 854 0236 1B22     	 mov r2,#27
+ 855 0238 BA18     	 add r2,r7,r2
+ 856 023a 1278     	 ldrb r2,[r2]
+ 857 023c 9A42     	 cmp r2,r3
+ 858 023e D1D3     	 bcc .L43
+ 206:../nim_desktop.c ****               }
+ 207:../nim_desktop.c ****             }
+ 208:../nim_desktop.c ****           }
+ 209:../nim_desktop.c ****           if ((temp<=1) && (unitychecknotneeded==0))
+ 859              	 .loc 1 209 0 is_stmt 1
+ 860 0240 1623     	 mov r3,#22
+ 861 0242 FB18     	 add r3,r7,r3
+ 862 0244 1B78     	 ldrb r3,[r3]
+ 863 0246 012B     	 cmp r3,#1
+ 864 0248 67D8     	 bhi .L44
+ 865              	 .loc 1 209 0 is_stmt 0 discriminator 1
+ 866 024a 2323     	 mov r3,#35
+ 867 024c FB18     	 add r3,r7,r3
+ 868 024e 1B78     	 ldrb r3,[r3]
+ 869 0250 002B     	 cmp r3,#0
+ 870 0252 62D1     	 bne .L44
+ 210:../nim_desktop.c ****           {
+ 211:../nim_desktop.c ****             // is unityheaps odd? We want that..
+ 212:../nim_desktop.c ****             if ((unityheaps & 1) != 0)
+ 871              	 .loc 1 212 0 is_stmt 1
+ 872 0254 1A23     	 mov r3,#26
+ 873 0256 FB18     	 add r3,r7,r3
+ 874 0258 1B78     	 ldrb r3,[r3]
+ 875 025a 0122     	 mov r2,#1
+ 876 025c 1340     	 and r3,r2
+ 877 025e 13D0     	 beq .L45
+ 213:../nim_desktop.c ****             {
+ 214:../nim_desktop.c ****               // make the move permanent
+ 215:../nim_desktop.c ****               candidate[i]=temp;
+ 878              	 .loc 1 215 0
+ 879 0260 0823     	 mov r3,#8
+ 880 0262 FA18     	 add r2,r7,r3
+ 881 0264 FB69     	 ldr r3,[r7,#28]
+ 882 0266 D318     	 add r3,r2,r3
+ 883 0268 1622     	 mov r2,#22
+ 884 026a BA18     	 add r2,r7,r2
+ 885 026c 1278     	 ldrb r2,[r2]
+ 886 026e 1A70     	 strb r2,[r3]
+ 216:../nim_desktop.c ****               quality[i]+=10;
+ 887              	 .loc 1 216 0
+ 888 0270 3A1C     	 mov r2,r7
+ 889 0272 FB69     	 ldr r3,[r7,#28]
+ 890 0274 D318     	 add r3,r2,r3
+ 891 0276 1B78     	 ldrb r3,[r3]
+ 892 0278 0A33     	 add r3,r3,#10
+ 893 027a D9B2     	 uxtb r1,r3
+ 894 027c 3A1C     	 mov r2,r7
+ 895 027e FB69     	 ldr r3,[r7,#28]
+ 896 0280 D318     	 add r3,r2,r3
+ 897 0282 0A1C     	 add r2,r1,#0
+ 898 0284 1A70     	 strb r2,[r3]
+ 899 0286 47E0     	 b .L46
+ 900              	.L45:
+ 217:../nim_desktop.c ****               //numsticks[i]=temp;
+ 218:../nim_desktop.c ****             } // unityheaps would be even with that move. so take different action.
+ 219:../nim_desktop.c ****             else if (temp==1)
+ 901              	 .loc 1 219 0
+ 902 0288 1623     	 mov r3,#22
+ 903 028a FB18     	 add r3,r7,r3
+ 904 028c 1B78     	 ldrb r3,[r3]
+ 905 028e 012B     	 cmp r3,#1
+ 906 0290 11D1     	 bne .L47
+ 220:../nim_desktop.c ****             {
+ 221:../nim_desktop.c ****               // we can reduce to zero.
+ 222:../nim_desktop.c ****               candidate[i]=0;
+ 907              	 .loc 1 222 0
+ 908 0292 0823     	 mov r3,#8
+ 909 0294 FA18     	 add r2,r7,r3
+ 910 0296 FB69     	 ldr r3,[r7,#28]
+ 911 0298 D318     	 add r3,r2,r3
+ 912 029a 0022     	 mov r2,#0
+ 913 029c 1A70     	 strb r2,[r3]
+ 223:../nim_desktop.c ****               quality[i]+=5; // this move should be good too
+ 914              	 .loc 1 223 0
+ 915 029e 3A1C     	 mov r2,r7
+ 916 02a0 FB69     	 ldr r3,[r7,#28]
+ 917 02a2 D318     	 add r3,r2,r3
+ 918 02a4 1B78     	 ldrb r3,[r3]
+ 919 02a6 0533     	 add r3,r3,#5
+ 920 02a8 D9B2     	 uxtb r1,r3
+ 921 02aa 3A1C     	 mov r2,r7
+ 922 02ac FB69     	 ldr r3,[r7,#28]
+ 923 02ae D318     	 add r3,r2,r3
+ 924 02b0 0A1C     	 add r2,r1,#0
+ 925 02b2 1A70     	 strb r2,[r3]
+ 926 02b4 30E0     	 b .L46
+ 927              	.L47:
+ 224:../nim_desktop.c ****             }
+ 225:../nim_desktop.c ****             else
+ 226:../nim_desktop.c ****             {
+ 227:../nim_desktop.c ****               if (temp==0)
+ 928              	 .loc 1 227 0
+ 929 02b6 1623     	 mov r3,#22
+ 930 02b8 FB18     	 add r3,r7,r3
+ 931 02ba 1B78     	 ldrb r3,[r3]
+ 932 02bc 002B     	 cmp r3,#0
+ 933 02be 17D1     	 bne .L48
+ 228:../nim_desktop.c ****               {
+ 229:../nim_desktop.c ****                 if (numsticks[i]>1)
+ 934              	 .loc 1 229 0
+ 935 02c0 364A     	 ldr r2,.L62
+ 936 02c2 FB69     	 ldr r3,[r7,#28]
+ 937 02c4 D318     	 add r3,r2,r3
+ 938 02c6 1B78     	 ldrb r3,[r3]
+ 939 02c8 012B     	 cmp r3,#1
+ 940 02ca 25D9     	 bls .L46
+ 230:../nim_desktop.c ****                 {
+ 231:../nim_desktop.c ****                   // we can leave one stick, to make it odd again
+ 232:../nim_desktop.c ****                   candidate[i]=1;
+ 941              	 .loc 1 232 0
+ 942 02cc 0823     	 mov r3,#8
+ 943 02ce FA18     	 add r2,r7,r3
+ 944 02d0 FB69     	 ldr r3,[r7,#28]
+ 945 02d2 D318     	 add r3,r2,r3
+ 946 02d4 0122     	 mov r2,#1
+ 947 02d6 1A70     	 strb r2,[r3]
+ 233:../nim_desktop.c ****                   quality[i]+=9; // this move should be good
+ 948              	 .loc 1 233 0
+ 949 02d8 3A1C     	 mov r2,r7
+ 950 02da FB69     	 ldr r3,[r7,#28]
+ 951 02dc D318     	 add r3,r2,r3
+ 952 02de 1B78     	 ldrb r3,[r3]
+ 953 02e0 0933     	 add r3,r3,#9
+ 954 02e2 D9B2     	 uxtb r1,r3
+ 955 02e4 3A1C     	 mov r2,r7
+ 956 02e6 FB69     	 ldr r3,[r7,#28]
+ 957 02e8 D318     	 add r3,r2,r3
+ 958 02ea 0A1C     	 add r2,r1,#0
+ 959 02ec 1A70     	 strb r2,[r3]
+ 212:../nim_desktop.c ****             {
+ 960              	 .loc 1 212 0
+ 961 02ee 27E0     	 b .L50
+ 962              	.L48:
+ 234:../nim_desktop.c ****                 }
+ 235:../nim_desktop.c ****               }
+ 236:../nim_desktop.c ****               else
+ 237:../nim_desktop.c ****               {
+ 238:../nim_desktop.c ****                 // this won't be a nice move to make. But it is a valid move.
+ 239:../nim_desktop.c ****                 candidate[i]=temp;
+ 963              	 .loc 1 239 0
+ 964 02f0 0823     	 mov r3,#8
+ 965 02f2 FA18     	 add r2,r7,r3
+ 966 02f4 FB69     	 ldr r3,[r7,#28]
+ 967 02f6 D318     	 add r3,r2,r3
+ 968 02f8 1622     	 mov r2,#22
+ 969 02fa BA18     	 add r2,r7,r2
+ 970 02fc 1278     	 ldrb r2,[r2]
+ 971 02fe 1A70     	 strb r2,[r3]
+ 240:../nim_desktop.c ****                 quality[i]+=1;
+ 972              	 .loc 1 240 0
+ 973 0300 3A1C     	 mov r2,r7
+ 974 0302 FB69     	 ldr r3,[r7,#28]
+ 975 0304 D318     	 add r3,r2,r3
+ 976 0306 1B78     	 ldrb r3,[r3]
+ 977 0308 0133     	 add r3,r3,#1
+ 978 030a D9B2     	 uxtb r1,r3
+ 979 030c 3A1C     	 mov r2,r7
+ 980 030e FB69     	 ldr r3,[r7,#28]
+ 981 0310 D318     	 add r3,r2,r3
+ 982 0312 0A1C     	 add r2,r1,#0
+ 983 0314 1A70     	 strb r2,[r3]
+ 212:../nim_desktop.c ****             {
+ 984              	 .loc 1 212 0
+ 985 0316 13E0     	 b .L50
+ 986              	.L46:
+ 212:../nim_desktop.c ****             {
+ 987              	 .loc 1 212 0 is_stmt 0 discriminator 1
+ 988 0318 12E0     	 b .L50
+ 989              	.L44:
+ 241:../nim_desktop.c ****               }
+ 242:../nim_desktop.c ****             }
+ 243:../nim_desktop.c ****           }
+ 244:../nim_desktop.c ****           else
+ 245:../nim_desktop.c ****           {
+ 246:../nim_desktop.c ****             // this action won't result in all heaps containing 1
+ 247:../nim_desktop.c ****             // it could be a good move.
+ 248:../nim_desktop.c ****             candidate[i]=temp;
+ 990              	 .loc 1 248 0 is_stmt 1
+ 991 031a 0823     	 mov r3,#8
+ 992 031c FA18     	 add r2,r7,r3
+ 993 031e FB69     	 ldr r3,[r7,#28]
+ 994 0320 D318     	 add r3,r2,r3
+ 995 0322 1622     	 mov r2,#22
+ 996 0324 BA18     	 add r2,r7,r2
+ 997 0326 1278     	 ldrb r2,[r2]
+ 998 0328 1A70     	 strb r2,[r3]
+ 249:../nim_desktop.c ****             quality[i]+=9;
+ 999              	 .loc 1 249 0
+ 1000 032a 3A1C     	 mov r2,r7
+ 1001 032c FB69     	 ldr r3,[r7,#28]
+ 1002 032e D318     	 add r3,r2,r3
+ 1003 0330 1B78     	 ldrb r3,[r3]
+ 1004 0332 0933     	 add r3,r3,#9
+ 1005 0334 D9B2     	 uxtb r1,r3
+ 1006 0336 3A1C     	 mov r2,r7
+ 1007 0338 FB69     	 ldr r3,[r7,#28]
+ 1008 033a D318     	 add r3,r2,r3
+ 1009 033c 0A1C     	 add r2,r1,#0
+ 1010 033e 1A70     	 strb r2,[r3]
+ 1011              	.L50:
+ 250:../nim_desktop.c ****             
+ 251:../nim_desktop.c ****           }
+ 252:../nim_desktop.c ****           printf("candidate %d quality is %d\n", i, quality[i]);
+ 1012              	 .loc 1 252 0
+ 1013 0340 3A1C     	 mov r2,r7
+ 1014 0342 FB69     	 ldr r3,[r7,#28]
+ 1015 0344 D318     	 add r3,r2,r3
+ 1016 0346 1B78     	 ldrb r3,[r3]
+ 1017 0348 1C1C     	 mov r4,r3
+ 1018 034a 1B4A     	 ldr r2,.L62+28
+ 1019 034c FB69     	 ldr r3,[r7,#28]
+ 1020 034e 101C     	 mov r0,r2
+ 1021 0350 191C     	 mov r1,r3
+ 1022 0352 221C     	 mov r2,r4
+ 1023 0354 FFF7FEFF 	 bl printf
+ 1024              	.L38:
+ 184:../nim_desktop.c ****       {
+ 1025              	 .loc 1 184 0 discriminator 2
+ 1026 0358 FB69     	 ldr r3,[r7,#28]
+ 1027 035a 013B     	 sub r3,r3,#1
+ 1028 035c FB61     	 str r3,[r7,#28]
+ 1029              	.L37:
+ 184:../nim_desktop.c ****       {
+ 1030              	 .loc 1 184 0 is_stmt 0 discriminator 1
+ 1031 035e FB69     	 ldr r3,[r7,#28]
+ 1032 0360 002B     	 cmp r3,#0
+ 1033 0362 00DB     	 blt .LCB879
+ 1034 0364 11E7     	 b .L51
+ 1035              	.LCB879:
+ 253:../nim_desktop.c ****           
+ 254:../nim_desktop.c ****         } // end of if ((playable_rows_bitmap & 1<<i) != 0)
+ 255:../nim_desktop.c ****         // loop to get another candidate
+ 256:../nim_desktop.c ****       } // end of for (i=rows-1; i>=0; i--)
+ 257:../nim_desktop.c ****       // ok we have at least one playable move. Find the highest quality move.
+ 258:../nim_desktop.c ****       printf("quality table: %d %d %d %d\n", quality[0], quality[1], quality[2], quality[3]);
+ 1036              	 .loc 1 258 0 is_stmt 1
+ 1037 0366 3B1C     	 mov r3,r7
+ 1038 0368 1B78     	 ldrb r3,[r3]
+ 1039 036a 191C     	 mov r1,r3
+ 1040 036c 3B1C     	 mov r3,r7
+ 1041 036e 5B78     	 ldrb r3,[r3,#1]
+ 1042 0370 1D1C     	 mov r5,r3
+ 1043 0372 3B1C     	 mov r3,r7
+ 1044 0374 9B78     	 ldrb r3,[r3,#2]
+ 1045 0376 1C1C     	 mov r4,r3
+ 1046 0378 3B1C     	 mov r3,r7
+ 1047 037a DB78     	 ldrb r3,[r3,#3]
+ 1048 037c 1A1C     	 mov r2,r3
+ 1049 037e 0F4B     	 ldr r3,.L62+32
+ 1050 0380 0092     	 str r2,[sp]
+ 1051 0382 181C     	 mov r0,r3
+ 1052 0384 2A1C     	 mov r2,r5
+ 1053 0386 231C     	 mov r3,r4
+ 1054 0388 FFF7FEFF 	 bl printf
+ 259:../nim_desktop.c ****       printf("finding highest quality move\n");
+ 1055              	 .loc 1 259 0
+ 1056 038c 0C4B     	 ldr r3,.L62+36
+ 1057 038e 181C     	 mov r0,r3
+ 1058 0390 FFF7FEFF 	 bl puts
+ 260:../nim_desktop.c ****       for (i=0; i<rows; i++)
+ 1059              	 .loc 1 260 0
+ 1060 0394 0023     	 mov r3,#0
+ 1061 0396 FB61     	 str r3,[r7,#28]
+ 1062 0398 31E0     	 b .L52
+ 1063              	.L63:
+ 1064 039a C046     	 .align 2
+ 1065              	.L62:
+ 1066 039c 00000000 	 .word numsticks
+ 1067 03a0 00000000 	 .word current_selection
+ 1068 03a4 00000000 	 .word rows
+ 1069 03a8 34000000 	 .word .LC14
+ 1070 03ac 3C000000 	 .word .LC16
+ 1071 03b0 5C000000 	 .word .LC18
+ 1072 03b4 74000000 	 .word .LC20
+ 1073 03b8 8C000000 	 .word .LC22
+ 1074 03bc A8000000 	 .word .LC24
+ 1075 03c0 C4000000 	 .word .LC26
+ 1076              	.L54:
+ 261:../nim_desktop.c ****       {
+ 262:../nim_desktop.c ****         if (quality[i]>=peak_quality)
+ 1077              	 .loc 1 262 0
+ 1078 03c4 3A1C     	 mov r2,r7
+ 1079 03c6 FB69     	 ldr r3,[r7,#28]
+ 1080 03c8 D318     	 add r3,r2,r3
+ 1081 03ca 1B78     	 ldrb r3,[r3]
+ 1082 03cc 2522     	 mov r2,#37
+ 1083 03ce BA18     	 add r2,r7,r2
+ 1084 03d0 1278     	 ldrb r2,[r2]
+ 1085 03d2 9A42     	 cmp r2,r3
+ 1086 03d4 10D8     	 bhi .L53
+ 263:../nim_desktop.c ****         {
+ 264:../nim_desktop.c ****           peak_quality=quality[i];
+ 1087              	 .loc 1 264 0
+ 1088 03d6 2523     	 mov r3,#37
+ 1089 03d8 FB18     	 add r3,r7,r3
+ 1090 03da 391C     	 mov r1,r7
+ 1091 03dc FA69     	 ldr r2,[r7,#28]
+ 1092 03de 8A18     	 add r2,r1,r2
+ 1093 03e0 1278     	 ldrb r2,[r2]
+ 1094 03e2 1A70     	 strb r2,[r3]
+ 265:../nim_desktop.c ****           peak_candidate=i;
+ 1095              	 .loc 1 265 0
+ 1096 03e4 2423     	 mov r3,#36
+ 1097 03e6 FB18     	 add r3,r7,r3
+ 1098 03e8 FA69     	 ldr r2,[r7,#28]
+ 1099 03ea 1A70     	 strb r2,[r3]
+ 266:../nim_desktop.c ****           printf("best so far is candidate %d\n", i);
+ 1100              	 .loc 1 266 0
+ 1101 03ec 2F4A     	 ldr r2,.L64
+ 1102 03ee FB69     	 ldr r3,[r7,#28]
+ 1103 03f0 101C     	 mov r0,r2
+ 1104 03f2 191C     	 mov r1,r3
+ 1105 03f4 FFF7FEFF 	 bl printf
+ 1106              	.L53:
+ 260:../nim_desktop.c ****       {
+ 1107              	 .loc 1 260 0 discriminator 2
+ 1108 03f8 FB69     	 ldr r3,[r7,#28]
+ 1109 03fa 0133     	 add r3,r3,#1
+ 1110 03fc FB61     	 str r3,[r7,#28]
+ 1111              	.L52:
+ 260:../nim_desktop.c ****       {
+ 1112              	 .loc 1 260 0 is_stmt 0 discriminator 1
+ 1113 03fe 2C4B     	 ldr r3,.L64+4
+ 1114 0400 1B78     	 ldrb r3,[r3]
+ 1115 0402 1A1E     	 sub r2,r3,#0
+ 1116 0404 FB69     	 ldr r3,[r7,#28]
+ 1117 0406 9A42     	 cmp r2,r3
+ 1118 0408 DCDC     	 bgt .L54
+ 267:../nim_desktop.c ****         }
+ 268:../nim_desktop.c ****       }
+ 269:../nim_desktop.c ****       numsticks[peak_candidate]=candidate[peak_candidate];
+ 1119              	 .loc 1 269 0 is_stmt 1
+ 1120 040a 2423     	 mov r3,#36
+ 1121 040c FB18     	 add r3,r7,r3
+ 1122 040e 1B78     	 ldrb r3,[r3]
+ 1123 0410 2422     	 mov r2,#36
+ 1124 0412 BA18     	 add r2,r7,r2
+ 1125 0414 1278     	 ldrb r2,[r2]
+ 1126 0416 0821     	 mov r1,#8
+ 1127 0418 7918     	 add r1,r7,r1
+ 1128 041a 895C     	 ldrb r1,[r1,r2]
+ 1129 041c 254A     	 ldr r2,.L64+8
+ 1130 041e D154     	 strb r1,[r2,r3]
+ 1131 0420 40E0     	 b .L27
+ 1132              	.L36:
+ 270:../nim_desktop.c ****       
+ 271:../nim_desktop.c ****       
+ 272:../nim_desktop.c ****     } // end of if (num_playable_rows>=1)
+ 273:../nim_desktop.c ****     else
+ 274:../nim_desktop.c ****     {
+ 275:../nim_desktop.c ****       // we don't have a playable row in the bitmap!
+ 276:../nim_desktop.c ****       // play any row we can..
+ 277:../nim_desktop.c ****       for (i=0; i<rows; i++)
+ 1133              	 .loc 1 277 0
+ 1134 0422 0023     	 mov r3,#0
+ 1135 0424 FB61     	 str r3,[r7,#28]
+ 1136 0426 16E0     	 b .L56
+ 1137              	.L58:
+ 278:../nim_desktop.c ****       {
+ 279:../nim_desktop.c ****         if (numsticks[i]>0)
+ 1138              	 .loc 1 279 0
+ 1139 0428 224A     	 ldr r2,.L64+8
+ 1140 042a FB69     	 ldr r3,[r7,#28]
+ 1141 042c D318     	 add r3,r2,r3
+ 1142 042e 1B78     	 ldrb r3,[r3]
+ 1143 0430 002B     	 cmp r3,#0
+ 1144 0432 0DD0     	 beq .L57
+ 280:../nim_desktop.c ****         {
+ 281:../nim_desktop.c ****           numsticks[i]--;
+ 1145              	 .loc 1 281 0
+ 1146 0434 1F4A     	 ldr r2,.L64+8
+ 1147 0436 FB69     	 ldr r3,[r7,#28]
+ 1148 0438 D318     	 add r3,r2,r3
+ 1149 043a 1B78     	 ldrb r3,[r3]
+ 1150 043c 013B     	 sub r3,r3,#1
+ 1151 043e D9B2     	 uxtb r1,r3
+ 1152 0440 1C4A     	 ldr r2,.L64+8
+ 1153 0442 FB69     	 ldr r3,[r7,#28]
+ 1154 0444 D318     	 add r3,r2,r3
+ 1155 0446 0A1C     	 add r2,r1,#0
+ 1156 0448 1A70     	 strb r2,[r3]
+ 282:../nim_desktop.c ****           i=rows;
+ 1157              	 .loc 1 282 0
+ 1158 044a 194B     	 ldr r3,.L64+4
+ 1159 044c 1B78     	 ldrb r3,[r3]
+ 1160 044e FB61     	 str r3,[r7,#28]
+ 1161              	.L57:
+ 277:../nim_desktop.c ****       {
+ 1162              	 .loc 1 277 0 discriminator 2
+ 1163 0450 FB69     	 ldr r3,[r7,#28]
+ 1164 0452 0133     	 add r3,r3,#1
+ 1165 0454 FB61     	 str r3,[r7,#28]
+ 1166              	.L56:
+ 277:../nim_desktop.c ****       {
+ 1167              	 .loc 1 277 0 is_stmt 0 discriminator 1
+ 1168 0456 164B     	 ldr r3,.L64+4
+ 1169 0458 1B78     	 ldrb r3,[r3]
+ 1170 045a 1A1E     	 sub r2,r3,#0
+ 1171 045c FB69     	 ldr r3,[r7,#28]
+ 1172 045e 9A42     	 cmp r2,r3
+ 1173 0460 E2DC     	 bgt .L58
+ 1174 0462 1FE0     	 b .L27
+ 1175              	.L32:
+ 283:../nim_desktop.c ****         }
+ 284:../nim_desktop.c ****       }
+ 285:../nim_desktop.c ****     }
+ 286:../nim_desktop.c ****   } // end of if (x>0)
+ 287:../nim_desktop.c ****   else
+ 288:../nim_desktop.c ****   {
+ 289:../nim_desktop.c ****     // no strategy any more. play any row we can..
+ 290:../nim_desktop.c ****     for (i=0; i<rows; i++)
+ 1176              	 .loc 1 290 0 is_stmt 1
+ 1177 0464 0023     	 mov r3,#0
+ 1178 0466 FB61     	 str r3,[r7,#28]
+ 1179 0468 16E0     	 b .L59
+ 1180              	.L61:
+ 291:../nim_desktop.c ****     {
+ 292:../nim_desktop.c ****       if (numsticks[i]>0)
+ 1181              	 .loc 1 292 0
+ 1182 046a 124A     	 ldr r2,.L64+8
+ 1183 046c FB69     	 ldr r3,[r7,#28]
+ 1184 046e D318     	 add r3,r2,r3
+ 1185 0470 1B78     	 ldrb r3,[r3]
+ 1186 0472 002B     	 cmp r3,#0
+ 1187 0474 0DD0     	 beq .L60
+ 293:../nim_desktop.c ****       {
+ 294:../nim_desktop.c ****         numsticks[i]--;
+ 1188              	 .loc 1 294 0
+ 1189 0476 0F4A     	 ldr r2,.L64+8
+ 1190 0478 FB69     	 ldr r3,[r7,#28]
+ 1191 047a D318     	 add r3,r2,r3
+ 1192 047c 1B78     	 ldrb r3,[r3]
+ 1193 047e 013B     	 sub r3,r3,#1
+ 1194 0480 D9B2     	 uxtb r1,r3
+ 1195 0482 0C4A     	 ldr r2,.L64+8
+ 1196 0484 FB69     	 ldr r3,[r7,#28]
+ 1197 0486 D318     	 add r3,r2,r3
+ 1198 0488 0A1C     	 add r2,r1,#0
+ 1199 048a 1A70     	 strb r2,[r3]
+ 295:../nim_desktop.c ****         i=rows;
+ 1200              	 .loc 1 295 0
+ 1201 048c 084B     	 ldr r3,.L64+4
+ 1202 048e 1B78     	 ldrb r3,[r3]
+ 1203 0490 FB61     	 str r3,[r7,#28]
+ 1204              	.L60:
+ 290:../nim_desktop.c ****     {
+ 1205              	 .loc 1 290 0 discriminator 2
+ 1206 0492 FB69     	 ldr r3,[r7,#28]
+ 1207 0494 0133     	 add r3,r3,#1
+ 1208 0496 FB61     	 str r3,[r7,#28]
+ 1209              	.L59:
+ 290:../nim_desktop.c ****     {
+ 1210              	 .loc 1 290 0 is_stmt 0 discriminator 1
+ 1211 0498 054B     	 ldr r3,.L64+4
+ 1212 049a 1B78     	 ldrb r3,[r3]
+ 1213 049c 1A1E     	 sub r2,r3,#0
+ 1214 049e FB69     	 ldr r3,[r7,#28]
+ 1215 04a0 9A42     	 cmp r2,r3
+ 1216 04a2 E2DC     	 bgt .L61
+ 1217              	.L27:
+ 296:../nim_desktop.c ****       }
+ 297:../nim_desktop.c ****     }
+ 298:../nim_desktop.c ****   }
+ 299:../nim_desktop.c **** }
+ 1218              	 .loc 1 299 0 is_stmt 1
+ 1219 04a4 BD46     	 mov sp,r7
+ 1220 04a6 0AB0     	 add sp,sp,#40
+ 1221              	 
+ 1222 04a8 B0BD     	 pop {r4,r5,r7,pc}
+ 1223              	.L65:
+ 1224 04aa C046     	 .align 2
+ 1225              	.L64:
+ 1226 04ac E4000000 	 .word .LC28
+ 1227 04b0 00000000 	 .word rows
+ 1228 04b4 00000000 	 .word numsticks
+ 1229              	 .cfi_endproc
+ 1230              	.LFE4:
+ 1232              	 .section .rodata
+ 1233 0101 000000   	 .align 2
+ 1234              	.LC30:
+ 1235 0104 25643A20 	 .ascii "%d:  \000"
+ 1235      2000
+ 1236 010a 0000     	 .align 2
+ 1237              	.LC34:
+ 1238 010c 25642020 	 .ascii "%d   \000"
+ 1238      2000
+ 1239 0112 0000     	 .section .text.show_status,"ax",%progbits
+ 1240              	 .align 2
+ 1241              	 .global show_status
+ 1242              	 .code 16
+ 1243              	 .thumb_func
+ 1245              	show_status:
+ 1246              	.LFB5:
+ 300:../nim_desktop.c **** 
+ 301:../nim_desktop.c **** void
+ 302:../nim_desktop.c **** show_status(void)
+ 303:../nim_desktop.c **** {
+ 1247              	 .loc 1 303 0
+ 1248              	 .cfi_startproc
+ 1249 0000 80B5     	 push {r7,lr}
+ 1250              	.LCFI15:
+ 1251              	 .cfi_def_cfa_offset 8
+ 1252              	 .cfi_offset 7,-8
+ 1253              	 .cfi_offset 14,-4
+ 1254 0002 82B0     	 sub sp,sp,#8
+ 1255              	.LCFI16:
+ 1256              	 .cfi_def_cfa_offset 16
+ 1257 0004 00AF     	 add r7,sp,#0
+ 1258              	.LCFI17:
+ 1259              	 .cfi_def_cfa_register 7
+ 304:../nim_desktop.c ****   char i;
+ 305:../nim_desktop.c ****   
+ 306:../nim_desktop.c ****   printf("\n");
+ 1260              	 .loc 1 306 0
+ 1261 0006 0A20     	 mov r0,#10
+ 1262 0008 FFF7FEFF 	 bl putchar
+ 307:../nim_desktop.c ****   for (i=0; i<rows; i++)
+ 1263              	 .loc 1 307 0
+ 1264 000c FB1D     	 add r3,r7,#7
+ 1265 000e 0022     	 mov r2,#0
+ 1266 0010 1A70     	 strb r2,[r3]
+ 1267 0012 0CE0     	 b .L67
+ 1268              	.L68:
+ 308:../nim_desktop.c ****   {
+ 309:../nim_desktop.c ****     printf("%d:  ", i+1);
+ 1269              	 .loc 1 309 0 discriminator 3
+ 1270 0014 FB1D     	 add r3,r7,#7
+ 1271 0016 1B78     	 ldrb r3,[r3]
+ 1272 0018 0133     	 add r3,r3,#1
+ 1273 001a 194A     	 ldr r2,.L71
+ 1274 001c 101C     	 mov r0,r2
+ 1275 001e 191C     	 mov r1,r3
+ 1276 0020 FFF7FEFF 	 bl printf
+ 307:../nim_desktop.c ****   for (i=0; i<rows; i++)
+ 1277              	 .loc 1 307 0 discriminator 3
+ 1278 0024 FB1D     	 add r3,r7,#7
+ 1279 0026 1A78     	 ldrb r2,[r3]
+ 1280 0028 FB1D     	 add r3,r7,#7
+ 1281 002a 0132     	 add r2,r2,#1
+ 1282 002c 1A70     	 strb r2,[r3]
+ 1283              	.L67:
+ 307:../nim_desktop.c ****   for (i=0; i<rows; i++)
+ 1284              	 .loc 1 307 0 is_stmt 0 discriminator 1
+ 1285 002e 154B     	 ldr r3,.L71+4
+ 1286 0030 1B78     	 ldrb r3,[r3]
+ 1287 0032 FA1D     	 add r2,r7,#7
+ 1288 0034 1278     	 ldrb r2,[r2]
+ 1289 0036 9A42     	 cmp r2,r3
+ 1290 0038 ECD3     	 bcc .L68
+ 310:../nim_desktop.c ****   }
+ 311:../nim_desktop.c ****   printf("\n");
+ 1291              	 .loc 1 311 0 is_stmt 1
+ 1292 003a 0A20     	 mov r0,#10
+ 1293 003c FFF7FEFF 	 bl putchar
+ 312:../nim_desktop.c ****   for (i=0; i<rows; i++)
+ 1294              	 .loc 1 312 0
+ 1295 0040 FB1D     	 add r3,r7,#7
+ 1296 0042 0022     	 mov r2,#0
+ 1297 0044 1A70     	 strb r2,[r3]
+ 1298 0046 0EE0     	 b .L69
+ 1299              	.L70:
+ 313:../nim_desktop.c ****   {
+ 314:../nim_desktop.c ****     printf("%d   ", numsticks[i]);
+ 1300              	 .loc 1 314 0 discriminator 3
+ 1301 0048 FB1D     	 add r3,r7,#7
+ 1302 004a 1B78     	 ldrb r3,[r3]
+ 1303 004c 0E4A     	 ldr r2,.L71+8
+ 1304 004e D35C     	 ldrb r3,[r2,r3]
+ 1305 0050 1A1C     	 mov r2,r3
+ 1306 0052 0E4B     	 ldr r3,.L71+12
+ 1307 0054 181C     	 mov r0,r3
+ 1308 0056 111C     	 mov r1,r2
+ 1309 0058 FFF7FEFF 	 bl printf
+ 312:../nim_desktop.c ****   for (i=0; i<rows; i++)
+ 1310              	 .loc 1 312 0 discriminator 3
+ 1311 005c FB1D     	 add r3,r7,#7
+ 1312 005e 1A78     	 ldrb r2,[r3]
+ 1313 0060 FB1D     	 add r3,r7,#7
+ 1314 0062 0132     	 add r2,r2,#1
+ 1315 0064 1A70     	 strb r2,[r3]
+ 1316              	.L69:
+ 312:../nim_desktop.c ****   for (i=0; i<rows; i++)
+ 1317              	 .loc 1 312 0 is_stmt 0 discriminator 1
+ 1318 0066 074B     	 ldr r3,.L71+4
+ 1319 0068 1B78     	 ldrb r3,[r3]
+ 1320 006a FA1D     	 add r2,r7,#7
+ 1321 006c 1278     	 ldrb r2,[r2]
+ 1322 006e 9A42     	 cmp r2,r3
+ 1323 0070 EAD3     	 bcc .L70
+ 315:../nim_desktop.c ****   }
+ 316:../nim_desktop.c ****   printf("\n");
+ 1324              	 .loc 1 316 0 is_stmt 1
+ 1325 0072 0A20     	 mov r0,#10
+ 1326 0074 FFF7FEFF 	 bl putchar
+ 317:../nim_desktop.c **** }
+ 1327              	 .loc 1 317 0
+ 1328 0078 BD46     	 mov sp,r7
+ 1329 007a 02B0     	 add sp,sp,#8
+ 1330              	 
+ 1331 007c 80BD     	 pop {r7,pc}
+ 1332              	.L72:
+ 1333 007e C046     	 .align 2
+ 1334              	.L71:
+ 1335 0080 04010000 	 .word .LC30
+ 1336 0084 00000000 	 .word rows
+ 1337 0088 00000000 	 .word numsticks
+ 1338 008c 0C010000 	 .word .LC34
+ 1339              	 .cfi_endproc
+ 1340              	.LFE5:
+ 1342              	 .section .text.main,"ax",%progbits
+ 1343              	 .align 2
+ 1344              	 .global main
+ 1345              	 .code 16
+ 1346              	 .thumb_func
+ 1348              	main:
+ 1349              	.LFB6:
+ 318:../nim_desktop.c **** 
+ 319:../nim_desktop.c **** int
+ 320:../nim_desktop.c **** main(void)
+ 321:../nim_desktop.c **** {
+ 1350              	 .loc 1 321 0
+ 1351              	 .cfi_startproc
+ 1352 0000 90B5     	 push {r4,r7,lr}
+ 1353              	.LCFI18:
+ 1354              	 .cfi_def_cfa_offset 12
+ 1355              	 .cfi_offset 4,-12
+ 1356              	 .cfi_offset 7,-8
+ 1357              	 .cfi_offset 14,-4
+ 1358 0002 83B0     	 sub sp,sp,#12
+ 1359              	.LCFI19:
+ 1360              	 .cfi_def_cfa_offset 24
+ 1361 0004 00AF     	 add r7,sp,#0
+ 1362              	.LCFI20:
+ 1363              	 .cfi_def_cfa_register 7
+ 322:../nim_desktop.c ****   int i;
+ 323:../nim_desktop.c ****   char ret;
+ 324:../nim_desktop.c ****   
+ 325:../nim_desktop.c ****   setup_game();
+ 1364              	 .loc 1 325 0
+ 1365 0006 FFF7FEFF 	 bl setup_game
+ 1366              	.L75:
+ 326:../nim_desktop.c ****   while(1)
+ 327:../nim_desktop.c ****   {
+ 328:../nim_desktop.c ****      show_status();
+ 1367              	 .loc 1 328 0
+ 1368 000a FFF7FEFF 	 bl show_status
+ 329:../nim_desktop.c ****      ret=user_play();
+ 1369              	 .loc 1 329 0
+ 1370 000e FC1D     	 add r4,r7,#7
+ 1371 0010 FFF7FEFF 	 bl user_play
+ 1372 0014 031C     	 mov r3,r0
+ 1373 0016 2370     	 strb r3,[r4]
+ 330:../nim_desktop.c ****      if (ret==9)
+ 1374              	 .loc 1 330 0
+ 1375 0018 FB1D     	 add r3,r7,#7
+ 1376 001a 1B78     	 ldrb r3,[r3]
+ 1377 001c 092B     	 cmp r3,#9
+ 1378 001e 01D1     	 bne .L74
+ 331:../nim_desktop.c ****        computer_play();
+ 1379              	 .loc 1 331 0
+ 1380 0020 FFF7FEFF 	 bl computer_play
+ 1381              	.L74:
+ 332:../nim_desktop.c ****   }
+ 1382              	 .loc 1 332 0
+ 1383 0024 F1E7     	 b .L75
+ 1384              	 .cfi_endproc
+ 1385              	.LFE6:
+ 1387 0026 C046     	 .text
+ 1388              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 nim_desktop.c
+                            *COM*:00000005 numsticks
+    {standard input}:22     .data.level:00000000 level
+    {standard input}:28     .data.rows:00000000 rows
+    {standard input}:35     .data.randreg:00000000 randreg
+    {standard input}:32     .data.randreg:00000000 $d
+    {standard input}:41     .bss.current_selection:00000000 current_selection
+    {standard input}:42     .bss.current_selection:00000000 $d
+    {standard input}:44     .text.random_num:00000000 $t
+    {standard input}:49     .text.random_num:00000000 random_num
+    {standard input}:131    .text.random_num:00000070 $d
+    {standard input}:136    .text.setup_game:00000000 $t
+    {standard input}:141    .text.setup_game:00000000 setup_game
+    {standard input}:272    .text.setup_game:000000b0 $d
+    {standard input}:279    .rodata:00000000 $d
+    {standard input}:286    .text.user_play:00000000 $t
+    {standard input}:291    .text.user_play:00000000 user_play
+    {standard input}:378    .text.user_play:00000078 $d
+    {standard input}:387    .text.count_ones:00000000 $t
+    {standard input}:392    .text.count_ones:00000000 count_ones
+    {standard input}:496    .text.computer_play:00000000 $t
+    {standard input}:501    .text.computer_play:00000000 computer_play
+    {standard input}:1066   .text.computer_play:0000039c $d
+    {standard input}:1078   .text.computer_play:000003c4 $t
+    {standard input}:1226   .text.computer_play:000004ac $d
+    {standard input}:1240   .text.show_status:00000000 $t
+    {standard input}:1245   .text.show_status:00000000 show_status
+    {standard input}:1335   .text.show_status:00000080 $d
+    {standard input}:1343   .text.main:00000000 $t
+    {standard input}:1348   .text.main:00000000 main
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+printf
+scanf
+puts
+putchar

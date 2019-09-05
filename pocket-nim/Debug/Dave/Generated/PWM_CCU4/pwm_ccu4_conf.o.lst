@@ -1,0 +1,161 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "pwm_ccu4_conf.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .global pwm1_timer_handle
+  18              	 .section .rodata.pwm1_timer_handle,"a",%progbits
+  19              	 .align 2
+  22              	pwm1_timer_handle:
+  23 0000 00       	 .byte 0
+  24 0001 00       	 .byte 0
+  25 0002 00       	 .byte 0
+  26 0003 00       	 .byte 0
+  27 0004 01       	 .byte 1
+  28 0005 00       	 .byte 0
+  29 0006 0000     	 .space 2
+  30              	 .global pwm1_event0_config
+  31              	 .section .rodata.pwm1_event0_config,"a",%progbits
+  32              	 .align 2
+  35              	pwm1_event0_config:
+  36 0000 00       	 .byte 0
+  37 0001 00       	 .byte 0
+  38 0002 01       	 .byte 1
+  39 0003 00       	 .byte 0
+  40              	 .global pwm1_event1_config
+  41              	 .section .rodata.pwm1_event1_config,"a",%progbits
+  42              	 .align 2
+  45              	pwm1_event1_config:
+  46 0000 00       	 .byte 0
+  47 0001 00       	 .byte 0
+  48 0002 01       	 .byte 1
+  49 0003 00       	 .byte 0
+  50              	 .global pwm1_event2_config
+  51              	 .section .rodata.pwm1_event2_config,"a",%progbits
+  52              	 .align 2
+  55              	pwm1_event2_config:
+  56 0000 00       	 .byte 0
+  57 0001 00       	 .byte 0
+  58 0002 01       	 .byte 1
+  59 0003 00       	 .byte 0
+  60              	 .global pwm1_ch1_out0_config
+  61              	 .section .rodata.pwm1_ch1_out0_config,"a",%progbits
+  62              	 .align 2
+  65              	pwm1_ch1_out0_config:
+  66 0000 A0       	 .byte -96
+  67 0001 00       	 .byte 0
+  68 0002 0000     	 .space 2
+  69 0004 00000100 	 .word 65536
+  70              	 .global pwm1_config_handle
+  71              	 .section .rodata.pwm1_config_handle,"a",%progbits
+  72              	 .align 2
+  75              	pwm1_config_handle:
+  76 0000 00       	 .byte 0
+  77 0001 00       	 .space 1
+  78 0002 8BFD     	 .short -629
+  79 0004 C67E     	 .short 32454
+  80 0006 00       	 .byte 0
+  81 0007 00       	 .byte 0
+  82 0008 00       	 .byte 0
+  83 0009 00       	 .byte 0
+  84 000a 00       	 .byte 0
+  85 000b 00       	 .byte 0
+  86 000c 00       	 .byte 0
+  87 000d 00       	 .byte 0
+  88 000e 00       	 .byte 0
+  89 000f 00       	 .byte 0
+  90 0010 00       	 .byte 0
+  91 0011 00       	 .byte 0
+  92 0012 00       	 .byte 0
+  93 0013 00       	 .byte 0
+  94 0014 00000000 	 .word pwm1_event0_config
+  95 0018 00000000 	 .word pwm1_event1_config
+  96 001c 00000000 	 .word pwm1_event2_config
+  97 0020 00       	 .byte 0
+  98 0021 00       	 .byte 0
+  99 0022 00       	 .byte 0
+ 100 0023 00       	 .byte 0
+ 101 0024 00       	 .byte 0
+ 102 0025 00       	 .byte 0
+ 103 0026 00       	 .byte 0
+ 104 0027 00       	 .byte 0
+ 105 0028 00       	 .byte 0
+ 106 0029 00       	 .byte 0
+ 107 002a 00       	 .byte 0
+ 108 002b 00       	 .byte 0
+ 109 002c 00       	 .byte 0
+ 110 002d 00       	 .byte 0
+ 111 002e 00       	 .byte 0
+ 112 002f 01       	 .byte 1
+ 113 0030 00       	 .byte 0
+ 114 0031 000000   	 .space 3
+ 115 0034 00000004 	 .word 67108864
+ 116 0038 00000000 	 .word pwm1_timer_handle
+ 117 003c 01       	 .byte 1
+ 118 003d 000000   	 .space 3
+ 119 0040 00000440 	 .word 1074003968
+ 120 0044 05       	 .byte 5
+ 121 0045 000000   	 .space 3
+ 122 0048 00000000 	 .word pwm1_ch1_out0_config
+ 123 004c 00000000 	 .word GLOBAL_CCU4_0
+ 124              	 .global pwm1
+ 125              	 .section .data.pwm1,"aw",%progbits
+ 126              	 .align 2
+ 129              	pwm1:
+ 130 0000 00000000 	 .word pwm1_config_handle
+ 131 0004 00000448 	 .word 1208221696
+ 132 0008 00010448 	 .word 1208221952
+ 133 000c 00       	 .byte 0
+ 134 000d 00       	 .byte 0
+ 135 000e 0000     	 .space 2
+ 136 0010 01000000 	 .word 1
+ 137 0014 02000000 	 .word 2
+ 138 0018 04000000 	 .word 4
+ 139 001c 00       	 .byte 0
+ 140 001d 00000000 	 .space 7
+ 140      000000
+ 141 0024 88130000 	 .word 5000
+ 142              	 .text
+ 143              	.Letext0:
+ 144              	 .file 1 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 145              	 .file 2 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 146              	 .file 3 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/CMSIS/Infineon/XMC1100_series/Include/XMC1100.h"
+ 147              	 .file 4 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc/xmc_gpio.h"
+ 148              	 .file 5 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc/xmc1_gpio.h"
+ 149              	 .file 6 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc/xmc_ccu4.h"
+ 150              	 .file 7 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc/xmc1_scu.h"
+ 151              	 .file 8 "../Dave/Generated/PWM_CCU4/../GLOBAL_CCU4/global_ccu4.h"
+ 152              	 .file 9 "../Dave/Generated/PWM_CCU4/pwm_ccu4.h"
+ 153              	 .file 10 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/CMSIS/Infineon/XMC1100_series/Include/system_XMC1100.h"
+ 154              	 .file 11 "../Dave/Generated/PWM_CCU4/../GLOBAL_CCU4/global_ccu4_extern.h"
+ 155              	 .file 12 "../Dave/Generated/PWM_CCU4/pwm_ccu4_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm_ccu4_conf.c
+    {standard input}:22     .rodata.pwm1_timer_handle:00000000 pwm1_timer_handle
+    {standard input}:19     .rodata.pwm1_timer_handle:00000000 $d
+    {standard input}:35     .rodata.pwm1_event0_config:00000000 pwm1_event0_config
+    {standard input}:32     .rodata.pwm1_event0_config:00000000 $d
+    {standard input}:45     .rodata.pwm1_event1_config:00000000 pwm1_event1_config
+    {standard input}:42     .rodata.pwm1_event1_config:00000000 $d
+    {standard input}:55     .rodata.pwm1_event2_config:00000000 pwm1_event2_config
+    {standard input}:52     .rodata.pwm1_event2_config:00000000 $d
+    {standard input}:65     .rodata.pwm1_ch1_out0_config:00000000 pwm1_ch1_out0_config
+    {standard input}:62     .rodata.pwm1_ch1_out0_config:00000000 $d
+    {standard input}:75     .rodata.pwm1_config_handle:00000000 pwm1_config_handle
+    {standard input}:72     .rodata.pwm1_config_handle:00000000 $d
+    {standard input}:129    .data.pwm1:00000000 pwm1
+    {standard input}:126    .data.pwm1:00000000 $d
+
+UNDEFINED SYMBOLS
+GLOBAL_CCU4_0

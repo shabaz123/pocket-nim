@@ -1,0 +1,1164 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "global_ccu4.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .section .text.XMC_CCU4_StartPrescaler,"ax",%progbits
+  18              	 .align 2
+  19              	 .code 16
+  20              	 .thumb_func
+  22              	XMC_CCU4_StartPrescaler:
+  23              	.LFB41:
+  24              	 .file 1 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc/xmc_ccu4.h"
+   1:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+   2:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @file xmc_ccu4.h
+   3:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @date 2016-05-20
+   4:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+   5:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @cond
+   6:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  **************************************************************************************************
+   7:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * XMClib v2.1.8 - XMC Peripheral Driver Library 
+   8:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+   9:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Copyright (c) 2015-2016, Infineon Technologies AG
+  10:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * All rights reserved.                        
+  11:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *                                             
+  12:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * following conditions are met:   
+  14:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *                                                                              
+  15:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * disclaimer.                        
+  17:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 
+  18:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 
+  21:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * products derived from this software without specific prior written permission.                  
+  23:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *                                                                              
+  24:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *                                                                              
+  32:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  **************************************************************************************************
+  35:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  36:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Change History
+  37:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * --------------
+  38:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  39:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2015-02-20:
+  40:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - Initial <br>
+  41:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - Documentation updates <br>
+  42:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  43:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2015-06-20:
+  44:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - Removed version macros and declaration of GetDriverVersion API <br>
+  45:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  46:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2015-07-22:
+  47:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - XMC_CCU4_SLICE_ConfigureStatusBitOverrideEvent() is updated to support XMC14 device. <br>
+  48:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  49:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2015-08-17:
+  50:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - XMC_CCU4_SLICE_PRESCALER_t enum is added to set the prescaler divider. <br>
+  51:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_t enum item names are updated according to the guideli
+  52:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - XMC_CCU4_EnableShadowTransfer() API is made as inline, to improve the speed. <br>
+  53:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  54:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2015-09-29:
+  55:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - In XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_t, two more enum items are added to support exte
+  56:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *       settings.
+  57:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  58:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2015-10-07:
+  59:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - XMC_CCU4_SLICE_GetEvent() is made as inline.
+  60:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - XMC_CCU4_SLICE_MULTI_IRQ_ID_t is added to support the XMC_CCU4_SLICE_EnableMultipleEvents(
+  61:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *       XMC_CCU4_SLICE_DisableMultipleEvents() APIs.
+  62:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - DOC updates for the newly added APIs.
+  63:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  64:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2016-03-09:
+  65:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - Optimization of write only registers 
+  66:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  67:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2016-05-20:
+  68:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - Added XMC_CCU4_SLICE_StopClearTimer()
+  69:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *     - Changed implementation of XMC_CCU4_SLICE_StopTimer() and XMC_CCU4_SLICE_ClearTimer() to av
+  70:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+  71:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @endcond
+  72:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+  73:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+  74:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #ifndef XMC_CCU4_H
+  75:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #define XMC_CCU4_H
+  76:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  
+  77:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**************************************************************************************************
+  78:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * HEADER FILES
+  79:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  **************************************************************************************************
+  80:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #include "xmc_common.h"
+  81:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU40)
+  82:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+  83:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if UC_FAMILY == XMC1
+  84:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  #include "xmc1_ccu4_map.h"
+  85:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+  86:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+  87:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if UC_FAMILY == XMC4
+  88:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  #include "xmc4_ccu4_map.h"
+  89:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+  90:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+  91:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+  92:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @addtogroup XMClib XMC Peripheral Library
+  93:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @{
+  94:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+  95:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  
+  96:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+  97:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @addtogroup CCU4
+  98:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @brief Capture Compare Unit 4 (CCU4) low level driver for XMC family of microcontrollers<br>
+  99:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 100:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * The CCU4 peripheral is a major component for systems that need general purpose timers for signal
+ 101:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * monitoring/conditioning and Pulse Width Modulation (PWM) signal generation. Power electronic con
+ 102:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * switched mode power supplies or interruptible power supplies, can easily be implemented with the
+ 103:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * CCU4 peripheral.\n
+ 104:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Each CCU4 module is comprised of four identical 16 bit Capture/Compare Timer slices, CC4y (where
+ 105:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * timer slice can work in compare mode or in capture mode.
+ 106:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 107:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * APIs provided in this file cover the following functional blocks of CCU4:\n
+ 108:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -- Timer configuration, Capture configuration, Function/Event configuration, Interrupt configura
+ 109:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par Note:
+ 110:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 1. SLICE (APIs prefixed with e.g. XMC_CCU4_SLICE_)
+ 111:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 2. Module (APIs are not having any prefix e.g. XMC_CCU4_)
+ 112:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 113:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par Timer(Compare mode) configuration:
+ 114:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * This section of the LLD provides the configuration structure XMC_CCU4_SLICE_COMPARE_CONFIG_t and
+ 115:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * function XMC_CCU4_SLICE_CompareInit().
+ 116:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 117:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * It can be used to:
+ 118:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Start and Stop the timer. (XMC_CCU4_SLICE_StartTimer(), XMC_CCU4_SLICE_StopTimer())
+ 119:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Update the period, compare, Dither, Prescaler  and Passive values. (XMC_CCU4_SLICE_SetTimerPe
+ 120:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    XMC_CCU4_SLICE_SetTimerCompareMatch(), XMC_CCU4_SLICE_SetPrescaler(), XMC_CCU4_SLICE_SetDithe
+ 121:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    XMC_CCU4_SLICE_SetPassiveLevel())
+ 122:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Enable the slices to support multichannel mode. (XMC_CCU4_SLICE_EnableMultiChannelMode())
+ 123:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 
+ 124:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par Capture configuration:
+ 125:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * This section of the LLD provides the configuration structure XMC_CCU4_SLICE_CAPTURE_CONFIG_t and
+ 126:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * function XMC_CCU4_SLICE_CaptureInit().
+ 127:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 128:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * It can be used to:
+ 129:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Configure the capture functionality. (XMC_CCU4_SLICE_Capture0Config(), XMC_CCU4_SLICE_Capture
+ 130:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Read the captured values along with the status, which indicate the value is latest or not.
+ 131:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    (XMC_CCU4_SLICE_GetCaptureRegisterValue())
+ 132:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 
+ 133:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par Function/Event configuration:
+ 134:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * This section of the LLD provides the configuration structure XMC_CCU4_SLICE_EVENT_CONFIG_t.\n
+ 135:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * 
+ 136:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * It can be used to:
+ 137:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Enable and Disable the events. (XMC_CCU4_SLICE_EnableEvent(), XMC_CCU4_SLICE_DisableEvent())
+ 138:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Configure to start and stop the timer on external events.(XMC_CCU4_SLICE_StartConfig(), XMC_C
+ 139:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Modulation, external load and Gating of the timer output.(XMC_CCU4_SLICE_ModulationConfig(), 
+ 140:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    XMC_CCU4_SLICE_LoadConfig(), XMC_CCU4_SLICE_GateConfig())
+ 141:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Control the count direction of the timer based on the external event. (XMC_CCU4_SLICE_Directi
+ 142:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# Count the external events.(XMC_CCU4_SLICE_CountConfig())
+ 143:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * -# External Trap. Which can be used as protective feature.(XMC_CCU4_SLICE_EnableTrap(), XMC_CCU4
+ 144:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    XMC_CCU4_SLICE_TrapConfig())
+ 145:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 146:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par Interrupt configuration:
+ 147:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * This section of the LLD provides the function to configure the interrupt node to each event (XMC
+ 148:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @{
+ 149:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 150:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  
+ 151:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**************************************************************************************************
+ 152:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * MACROS
+ 153:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  **************************************************************************************************
+ 154:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /* Macro to check if the interrupt enum passed is valid */
+ 155:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #define XMC_CCU4_SLICE_CHECK_INTERRUPT(interrupt) \
+ 156:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     ((interrupt == XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH)           || \
+ 157:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****      (interrupt == XMC_CCU4_SLICE_IRQ_ID_ONE_MATCH)              || \
+ 158:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****      (interrupt == XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP)  || \
+ 159:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****      (interrupt == XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_DOWN)|| \
+ 160:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****      (interrupt == XMC_CCU4_SLICE_IRQ_ID_EVENT0)                 || \
+ 161:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****      (interrupt == XMC_CCU4_SLICE_IRQ_ID_EVENT1)                 || \
+ 162:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****      (interrupt == XMC_CCU4_SLICE_IRQ_ID_EVENT2)                 || \
+ 163:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****      (interrupt == XMC_CCU4_SLICE_IRQ_ID_TRAP))
+ 164:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 165:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**************************************************************************************************
+ 166:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * ENUMS
+ 167:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  **************************************************************************************************
+ 168:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 169:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 170:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Typedef for CCU4 Global data structure
+ 171:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 172:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef CCU4_GLOBAL_TypeDef XMC_CCU4_MODULE_t;
+ 173:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 174:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 175:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Typedef for CCU4 Slice data structure
+ 176:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 177:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef CCU4_CC4_TypeDef XMC_CCU4_SLICE_t;
+ 178:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 179:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 180:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Return Value of an API
+ 181:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 182:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_STATUS
+ 183:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 184:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_STATUS_OK      = 0U, /**< API fulfils request */
+ 185:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_STATUS_ERROR       , /**< API cannot fulfil the request */
+ 186:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_STATUS_RUNNING     , /**< The timer slice is currently running */
+ 187:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_STATUS_IDLE          /**< The timer slice is currently idle */
+ 188:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_STATUS_t;
+ 189:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 190:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 191:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  CCU4 module clock
+ 192:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 193:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_CLOCK
+ 194:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 195:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_CLOCK_SCU        = 0U, /**< Select the fCCU as the clock */
+ 196:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_CLOCK_EXTERNAL_A     , /**< External clock-A */
+ 197:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_CLOCK_EXTERNAL_B     , /**< External clock-B */
+ 198:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_CLOCK_EXTERNAL_C       /**< External clock-C */
+ 199:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_CLOCK_t;
+ 200:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 201:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 202:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * CCU4 set the shadow transfer type for multichannel mode
+ 203:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 204:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER
+ 205:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 206:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE0       = (uint32_t)0x4000000, /**< Shadow transfe
+ 207:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                      only for slice
+ 208:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE0  = (uint32_t)0x4000400, /**< Shadow transfe
+ 209:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                      and hardware f
+ 210:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE1       = (uint32_t)0x8000000, /**< Shadow transfe
+ 211:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                      only for slice
+ 212:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE1  = (uint32_t)0x8000800, /**< Shadow transfe
+ 213:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                      and hardware f
+ 214:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE2       = (uint32_t)0x10000000, /**< Shadow transf
+ 215:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                       only for slic
+ 216:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE2  = (uint32_t)0x10001000, /**< Shadow transf
+ 217:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                       and hardware 
+ 218:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE3       = (uint32_t)0x20000000, /**< Shadow transf
+ 219:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                       only for slic
+ 220:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE3  = (uint32_t)0x20002000  /**< Shadow transf
+ 221:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                       and hardware 
+ 222:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_t;
+ 223:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 224:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 225:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Operational modes of CCU4 slice
+ 226:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 227:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_MODE
+ 228:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 229:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MODE_COMPARE  = 0U, /**< slice(CC4y) operates in Compare Mode */
+ 230:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MODE_CAPTURE        /**< slice(CC4y) operates in Capture Mode */
+ 231:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_MODE_t;
+ 232:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 233:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 234:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Timer counting modes for the slice
+ 235:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 236:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_TIMER_COUNT_MODE
+ 237:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 238:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_COUNT_MODE_EA  = 0U, /**< Edge Aligned Mode */
+ 239:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_COUNT_MODE_CA        /**< Center Aligned Mode */
+ 240:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_TIMER_COUNT_MODE_t;
+ 241:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 242:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 243:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Timer repetition mode for the slice
+ 244:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 245:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_TIMER_REPEAT_MODE
+ 246:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 247:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_REPEAT_MODE_REPEAT = 0U,  /**< Repetitive mode: continuous mode of operation
+ 248:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_REPEAT_MODE_SINGLE        /**< Single shot mode: Once a Period match/One mat
+ 249:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                       occurs timer goes to idle state */
+ 250:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_TIMER_REPEAT_MODE_t;
+ 251:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 252:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 253:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Timer counting direction for the CCU4 slice
+ 254:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 255:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_TIMER_COUNT_DIR
+ 256:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 257:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_COUNT_DIR_UP   = 0U, /**< Counting up */
+ 258:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_COUNT_DIR_DOWN       /**< Counting down */
+ 259:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_TIMER_COUNT_DIR_t;
+ 260:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 261:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 262:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Capture mode register sets
+ 263:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 264:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_CAP_REG_SET
+ 265:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 266:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_CAP_REG_SET_LOW  = 0U, /**< Capture register-0, Capture register-1 used */
+ 267:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_CAP_REG_SET_HIGH       /**< Capture register-2, Capture register-3 used */
+ 268:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_CAP_REG_SET_t;
+ 269:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 270:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 271:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Prescaler mode
+ 272:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 273:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_PRESCALER_MODE
+ 274:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 275:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL = 0U, /**< Fixed division of module clock */
+ 276:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_MODE_FLOAT        /**< Floating divider. */
+ 277:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_PRESCALER_MODE_t;
+ 278:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 279:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 280:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Timer output passive level
+ 281:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 282:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL
+ 283:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 284:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW  = 0U, /**< Passive level = Low */
+ 285:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH       /**< Passive level = High */
+ 286:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_t;
+ 287:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 288:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 289:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Timer clock Divider
+ 290:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 291:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_PRESCALER
+ 292:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 293:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_1  = 0U, /**< Slice Clock = fccu4 */
+ 294:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_2      , /**< Slice Clock = fccu4/2 */
+ 295:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_4      , /**< Slice Clock = fccu4/4 */
+ 296:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_8      , /**< Slice Clock = fccu4/8 */
+ 297:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_16     , /**< Slice Clock = fccu4/16 */
+ 298:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_32     , /**< Slice Clock = fccu4/32 */
+ 299:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_64     , /**< Slice Clock = fccu4/64 */
+ 300:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_128    , /**< Slice Clock = fccu4/128 */
+ 301:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_256    , /**< Slice Clock = fccu4/256 */
+ 302:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_512    , /**< Slice Clock = fccu4/512 */
+ 303:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_1024   , /**< Slice Clock = fccu4/1024 */
+ 304:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_2048   , /**< Slice Clock = fccu4/2048 */
+ 305:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_4096   , /**< Slice Clock = fccu4/4096 */
+ 306:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_8192   , /**< Slice Clock = fccu4/8192 */
+ 307:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_16384  , /**< Slice Clock = fccu4/16384 */
+ 308:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_PRESCALER_32768    /**< Slice Clock = fccu4/32768 */
+ 309:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_PRESCALER_t;
+ 310:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 311:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 312:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  External Function list
+ 313:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 314:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_FUNCTION
+ 315:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 316:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_START           = 0U, /**< Start function */
+ 317:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_STOP                , /**< Stop function */
+ 318:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_CAPTURE_EVENT0      , /**< Capture Event-0 function, CCycapt0 signal is u
+ 319:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                      generation */
+ 320:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_CAPTURE_EVENT1      , /**< Capture Event-1 function, CCycapt1 signal is u
+ 321:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                      generation */
+ 322:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_GATING              , /**< Gating function */
+ 323:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_DIRECTION           , /**< Direction function */
+ 324:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_LOAD                , /**< Load function */
+ 325:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_COUNT               , /**< Counting function */
+ 326:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_OVERRIDE            , /**< Override function */
+ 327:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_MODULATION          , /**< Modulation function */
+ 328:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_FUNCTION_TRAP                  /**< Trap function */
+ 329:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_FUNCTION_t;
+ 330:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 331:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 332:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  External Event list
+ 333:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 334:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_EVENT
+ 335:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 336:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_NONE  = 0U, /**< None */
+ 337:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_0         , /**< Event-0 */
+ 338:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_1         , /**< Event-1 */
+ 339:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_2           /**< Event-2 */
+ 340:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_EVENT_t;
+ 341:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 342:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 343:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  External Event trigger criteria  - Edge sensitivity
+ 344:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 345:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY
+ 346:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 347:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_NONE         = 0U, /**< None */
+ 348:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE      , /**< Rising Edge of the input signal gen
+ 349:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_FALLING_EDGE     , /**< Falling Edge of the input signal ge
+ 350:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                 trigger */
+ 351:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_DUAL_EDGE          /**< Both Rising and Falling edges cause
+ 352:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_t;
+ 353:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 354:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 355:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  External Event trigger criteria  - Level sensitivity
+ 356:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 357:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY
+ 358:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 359:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH = 0U, /**< Level sensitive functions react to 
+ 360:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW  = 1U, /**< Level sensitive functions react to 
+ 361:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   /* Below enum items can be utilised specific to the functionality */
+ 362:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_COUNT_UP_ON_LOW = 0U, /**< Timer counts up, during Low sta
+ 363:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_COUNT_UP_ON_HIGH = 1U /**< Timer counts up, during High st
+ 364:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_t;
+ 365:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 366:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 367:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Low pass filter Configuration. The External Event input should be stable for a selected number 
+ 368:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 369:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_EVENT_FILTER
+ 370:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 371:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_FILTER_DISABLED  = 0U, /**< No Low Pass Filter */
+ 372:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_FILTER_3_CYCLES      , /**< 3 clock cycles */
+ 373:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_FILTER_5_CYCLES      , /**< 5 clock cycles */
+ 374:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_FILTER_7_CYCLES        /**< 7 clock cycles */
+ 375:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_EVENT_FILTER_t;
+ 376:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 377:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 378:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  External Event Input list. This list depicts the possible input connections to the CCU4 slice.
+ 379:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Interconnects are specific to each device.
+ 380:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 381:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef uint8_t XMC_CCU4_SLICE_INPUT_t;
+ 382:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 383:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 384:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Actions that can be performed upon detection of an external Timer STOP event
+ 385:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 386:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_END_MODE
+ 387:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 388:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_END_MODE_TIMER_STOP       = 0U, /**< Stops the timer, without clearing TIMER regis
+ 389:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_END_MODE_TIMER_CLEAR          , /**< Without stopping timer, clears the TIMER regi
+ 390:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_END_MODE_TIMER_STOP_CLEAR       /**< Stops the timer and clears the TIMER register
+ 391:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_END_MODE_t;
+ 392:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 393:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 394:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Actions that can be performed upon detection of an external Timer START event
+ 395:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 396:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_START_MODE
+ 397:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 398:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_START_MODE_TIMER_START       = 0U, /**< Start the timer from the current count of 
+ 399:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_START_MODE_TIMER_START_CLEAR       /**< Clears the TIMER register and start the ti
+ 400:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_START_MODE_t;
+ 401:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 402:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 403:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Modulation of timer output signals
+ 404:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 405:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_MODULATION_MODE
+ 406:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 407:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MODULATION_MODE_CLEAR_ST_OUT  = 0U, /**< Clear ST and OUT signals */
+ 408:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MODULATION_MODE_CLEAR_OUT           /**< Clear only the OUT signal */
+ 409:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_MODULATION_MODE_t;
+ 410:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 411:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 412:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Trap exit mode
+ 413:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 414:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_TRAP_EXIT_MODE
+ 415:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 416:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TRAP_EXIT_MODE_AUTOMATIC = 0U, /**< Clear trap state as soon as the trap signal is
+ 417:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TRAP_EXIT_MODE_SW              /**< Clear only when acknowledged by software */
+ 418:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_TRAP_EXIT_MODE_t;
+ 419:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 420:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 421:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Timer clear on capture
+ 422:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 423:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_TIMER_CLEAR_MODE
+ 424:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 425:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_CLEAR_MODE_NEVER    = 0U, /**< Never clear the timer on any capture event */
+ 426:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_CLEAR_MODE_CAP_HIGH     , /**< Clear only when timer value has been captured
+ 427:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_CLEAR_MODE_CAP_LOW      , /**< Clear only when timer value has been captured
+ 428:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_TIMER_CLEAR_MODE_ALWAYS         /**< Always clear the timer upon detection of any 
+ 429:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_TIMER_CLEAR_MODE_t;
+ 430:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 431:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 432:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Multi Channel Shadow transfer request configuration options
+ 433:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 434:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_MCMS_ACTION
+ 435:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 436:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR          = 0U, /**< Transfer Compare and Period Shadow 
+ 437:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                 the actual registers upon MCS xfer 
+ 438:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR_PCMP     = 1U, /**< Transfer Compare, Period and Presca
+ 439:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                 register values to the actual regis
+ 440:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                 request */
+ 441:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR_PCMP_DIT = 3U  /**< Transfer Compare, Period ,Prescaler
+ 442:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                 Compare register values to the actu
+ 443:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                 MCS xfer request */
+ 444:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_MCMS_ACTION_t;
+ 445:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 446:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 447:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Available Interrupt Event Ids
+ 448:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 449:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_IRQ_ID
+ 450:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 451:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH       = 0U , /**< Period match counting up */
+ 452:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_ONE_MATCH          = 1U , /**< Period match -> One match counting down */
+ 453:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP   = 2U , /**< Compare match counting up */
+ 454:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_DOWN = 3U , /**< Compare match counting down */
+ 455:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_EVENT0             = 8U , /**< Event-0 occurrence */
+ 456:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_EVENT1             = 9U , /**< Event-1 occurrence */
+ 457:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_EVENT2             = 10U, /**< Event-2 occurrence */
+ 458:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_IRQ_ID_TRAP               = 11U  /**< Trap occurrence */
+ 459:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_IRQ_ID_t;
+ 460:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 461:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 462:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Available Interrupt Event Ids, which is added to support multi event APIs
+ 463:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 464:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_MULTI_IRQ_ID
+ 465:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 466:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MULTI_IRQ_ID_PERIOD_MATCH       = 0x1U,   /**< Period match counting up */
+ 467:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MULTI_IRQ_ID_ONE_MATCH          = 0x2U,   /**< Period match -> One match counting 
+ 468:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MULTI_IRQ_ID_COMPARE_MATCH_UP   = 0x4U,   /**< Compare match counting up */
+ 469:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MULTI_IRQ_ID_COMPARE_MATCH_DOWN = 0x8U,   /**< Compare match counting down */
+ 470:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MULTI_IRQ_ID_EVENT0             = 0x100U, /**< Event-0 occurrence */
+ 471:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MULTI_IRQ_ID_EVENT1             = 0x200U, /**< Event-1 occurrence */
+ 472:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MULTI_IRQ_ID_EVENT2             = 0x400U, /**< Event-2 occurrence */
+ 473:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_MULTI_IRQ_ID_t;
+ 474:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 475:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 476:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Service Request Lines for CCU4. Event are mapped to these SR lines and these are used to generat
+ 477:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 478:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_SR_ID
+ 479:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 480:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_SR_ID_0    = 0U, /**< Service Request Line-0 selected  */
+ 481:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_SR_ID_1        , /**< Service Request Line-1 selected  */
+ 482:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_SR_ID_2        , /**< Service Request Line-2 selected  */
+ 483:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_SR_ID_3          /**< Service Request Line-3 selected  */
+ 484:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_SR_ID_t;
+ 485:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 486:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 487:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Slice shadow transfer options.
+ 488:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 489:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SHADOW_TRANSFER
+ 490:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 491:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_SLICE_0            = CCU4_GCSS_S0SE_Msk, /**< Transfer Period, Compare a
+ 492:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           shadow register values to
+ 493:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           SLICE-0 */
+ 494:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_0     = CCU4_GCSS_S0DSE_Msk, /**< Transfer Dither compare s
+ 495:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           to actual register for SL
+ 496:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0  = CCU4_GCSS_S0PSE_Msk, /**< Transfer Prescaler shadow
+ 497:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           actual register for SLICE
+ 498:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_SLICE_1            = CCU4_GCSS_S1SE_Msk, /**< Transfer Period, Compare a
+ 499:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           shadow register values to
+ 500:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           SLICE-1 */
+ 501:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_1     = CCU4_GCSS_S1DSE_Msk, /**< Transfer Dither compare s
+ 502:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           to actual registers for S
+ 503:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_1  = CCU4_GCSS_S1PSE_Msk, /**< Transfer Prescaler shadow
+ 504:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           actual register for SLICE
+ 505:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_SLICE_2            = CCU4_GCSS_S2SE_Msk, /**< Transfer Period, Compare a
+ 506:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           shadow register values to
+ 507:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           SLICE-2 */
+ 508:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_2     = CCU4_GCSS_S2DSE_Msk, /**< Transfer Dither compare s
+ 509:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           to actual register for SL
+ 510:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_2  = CCU4_GCSS_S2PSE_Msk, /**< Transfer Prescaler shadow
+ 511:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           actual register for SLICE
+ 512:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_SLICE_3            = CCU4_GCSS_S3SE_Msk, /**< Transfer Period, Compare a
+ 513:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           shadow register values to
+ 514:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           SLICE-3 */
+ 515:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_3     = CCU4_GCSS_S3DSE_Msk, /**< Transfer Dither compare s
+ 516:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           to actual register for SL
+ 517:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_3  = CCU4_GCSS_S3PSE_Msk  /**< Transfer Prescaler shadow
+ 518:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                           actual register for SLICE
+ 519:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SHADOW_TRANSFER_t;
+ 520:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 521:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU4V3) || defined(DOXYGEN)/* Defined for XMC1400 devices only */
+ 522:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 523:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Slice shadow transfer mode options.
+ 524:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @note Only available for XMC1400 series
+ 525:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 526:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE
+ 527:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 528:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_IN_PERIOD_MATCH_AND_ONE_MATCH = 0U,  /**< Shadow transfer is 
+ 529:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                 One match. */
+ 530:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_ONLY_IN_PERIOD_MATCH = 1U,  /**< Shadow transfer is done only
+ 531:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_ONLY_IN_ONE_MATCH = 2U  /**< Shadow transfer is done only in 
+ 532:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_t; 
+ 533:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   
+ 534:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   
+ 535:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 536:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Immediate write into configuration register
+ 537:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  @note Only available for XMC1400 series
+ 538:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 539:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_WRITE_INTO
+ 540:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 541:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_WRITE_INTO_PERIOD_CONFIGURATION = CCU4_CC4_STC_IRPC_Msk,                  /**< Imm
+ 542:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Wri
+ 543:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Con
+ 544:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_WRITE_INTO_COMPARE_CONFIGURATION = CCU4_CC4_STC_IRCC_Msk,                 /**< Imm
+ 545:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Wri
+ 546:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Con
+ 547:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_WRITE_INTO_PASSIVE_LEVEL_CONFIGURATION = CCU4_CC4_STC_IRLC_Msk,           /**< Imm
+ 548:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Wri
+ 549:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                            Config
+ 550:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_WRITE_INTO_DITHER_VALUE_CONFIGURATION = CCU4_CC4_STC_IRDC_Msk,            /**< Imm
+ 551:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Wri
+ 552:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                            Config
+ 553:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_WRITE_INTO_FLOATING_PRESCALER_VALUE_CONFIGURATION = CCU4_CC4_STC_IRFC_Msk /**< Imm
+ 554:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Wri
+ 555:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                 Val
+ 556:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_WRITE_INTO_t;
+ 557:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 558:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 559:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 560:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Automatic Shadow Transfer request when writing into shadow register
+ 561:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  @note Only available for XMC1400 series
+ 562:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 563:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO
+ 564:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 565:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_PERIOD_SHADOW = CCU4_CC4_STC_ASPC_Msk,        
+ 566:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                                  
+ 567:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                    
+ 568:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                    
+ 569:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_COMPARE_SHADOW = CCU4_CC4_STC_ASCC_Msk,       
+ 570:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                                  
+ 571:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                                  
+ 572:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                                  
+ 573:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_PASSIVE_LEVEL = CCU4_CC4_STC_ASLC_Msk,        
+ 574:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                                  
+ 575:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                    
+ 576:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_DITHER_SHADOW = CCU4_CC4_STC_ASDC_Msk,        
+ 577:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                    
+ 578:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                    
+ 579:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_FLOATING_PRESCALER_SHADOW = CCU4_CC4_STC_ASFC_
+ 580:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 	                                                                                                  
+ 581:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                    
+ 582:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                                                                    
+ 583:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 584:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_t;
+ 585:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 586:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 587:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Used to create Mask needed for Multi-channel Shadow transfer enable/disable
+ 588:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 589:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef enum XMC_CCU4_SLICE_MASK
+ 590:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 591:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MASK_SLICE_0  = 1U , /**< SLICE-0 */
+ 592:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MASK_SLICE_1  = 2U , /**< SLICE-1 */
+ 593:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MASK_SLICE_2  = 4U , /**< SLICE-2 */
+ 594:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_MASK_SLICE_3  = 8U   /**< SLICE-3 */
+ 595:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_MASK_t;
+ 596:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 597:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 598:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**************************************************************************************************
+ 599:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * DATA STRUCTURES
+ 600:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  **************************************************************************************************
+ 601:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 602:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 603:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Configuration data structure of an External Event(Event-0/1/2).
+ 604:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Needed to configure the various aspects of an External Event.
+ 605:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  This structure will not connect the external event with an external function.
+ 606:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 607:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef struct XMC_CCU4_SLICE_EVENT_CONFIG
+ 608:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 609:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_INPUT_t                   mapped_input; /**< Required input signal for the Event *
+ 610:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_t  edge;         /**< Select the event edge of the input si
+ 611:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                               This is needed for an edge sensitive 
+ 612:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_t level;        /**< Select the event level of the input s
+ 613:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                                               This is needed for an level sensitive
+ 614:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_CCU4_SLICE_EVENT_FILTER_t            duration;     /**< Low Pass filter duration in terms of 
+ 615:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_EVENT_CONFIG_t;
+ 616:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 617:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /*Anonymous structure/union guard start*/
+ 618:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(__CC_ARM)
+ 619:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   #pragma push
+ 620:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   #pragma anon_unions
+ 621:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #elif defined(__TASKING__)
+ 622:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   #pragma warning 586
+ 623:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 624:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 625:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 626:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Configuration data structure for CCU4 slice. Specifically configures the CCU4 slice to compare 
+ 627:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  This excludes event and function configuration.
+ 628:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 629:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef struct XMC_CCU4_SLICE_COMPARE_CONFIG
+ 630:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 631:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   union
+ 632:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   {
+ 633:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     struct
+ 634:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     {
+ 635:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t timer_mode : 1;         /**< Edge aligned or Centre Aligned.
+ 636:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                              Accepts enum ::XMC_CCU4_SLICE_TIMER_COUNT_MODE_t */
+ 637:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t monoshot : 1;           /**< Single shot or Continuous mode .
+ 638:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                              Accepts enum :: XMC_CCU4_SLICE_TIMER_REPEAT_MODE_t*/
+ 639:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t shadow_xfer_clear : 1;  /**< Should PR and CR shadow xfer happen when timer is clear
+ 640:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 10;
+ 641:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t dither_timer_period: 1; /**< Can the period of the timer dither? */
+ 642:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t dither_duty_cycle : 1;  /**< Can the compare match of the timer dither? */
+ 643:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 1;
+ 644:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t prescaler_mode: 1;      /**< Normal or floating prescaler mode.
+ 645:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                              Accepts enum :: XMC_CCU4_SLICE_PRESCALER_MODE_t*/
+ 646:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 8;
+ 647:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t mcm_enable : 1;         /**< Multi-Channel mode enable? */
+ 648:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 6;
+ 649:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     };
+ 650:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     uint32_t tc;
+ 651:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   };
+ 652:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t prescaler_initval : 4;      /**< Initial prescaler divider value 
+ 653:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                             Accepts enum :: XMC_CCU4_SLICE_PRESCALER_t */
+ 654:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t float_limit : 4;            /**< The max value which the prescaler divider can increment
+ 655:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t dither_limit : 4;           /**< The value that determines the spreading of dithering */
+ 656:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t passive_level : 1;          /**< Configuration of ST and OUT passive levels.
+ 657:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                              Accepts enum :: XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_t*
+ 658:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t timer_concatenation : 1;    /**< Enables the concatenation of the timer if true.*/
+ 659:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_COMPARE_CONFIG_t;
+ 660:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 661:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 662:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Configuration data structure for CCU4 slice. Specifically configures the CCU4 slice to capture 
+ 663:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  This excludes event and function configuration.
+ 664:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */ 
+ 665:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** typedef struct XMC_CCU4_SLICE_CAPTURE_CONFIG
+ 666:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 667:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   union
+ 668:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   {
+ 669:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     struct
+ 670:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     {
+ 671:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 4;
+ 672:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t fifo_enable : 1;      /**< Should the capture registers be setup as a FIFO?(Extended
+ 673:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t timer_clear_mode : 2; /**< How should the timer register be cleared upon detection o
+ 674:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****                                           Accepts enum ::XMC_CCU4_SLICE_TIMER_CLEAR_MODE_t*/
+ 675:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 4;
+ 676:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t same_event : 1;       /**< Should the capture event for C1V/C0V and C3V/C2V be same 
+ 677:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t ignore_full_flag : 1; /**< Should updates to capture registers follow full flag rule
+ 678:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 3;
+ 679:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t prescaler_mode: 1;    /**< Normal or floating prescaler Accepts enum :: XMC_CCU4_SLI
+ 680:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****       uint32_t : 15;
+ 681:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     };
+ 682:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****     uint32_t tc;
+ 683:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   };
+ 684:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t prescaler_initval : 4;    /**< Prescaler divider value */
+ 685:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t float_limit : 4;          /**< The max value which the prescaler divider can increment t
+ 686:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   uint32_t timer_concatenation : 1;  /**< Enables the concatenation of the timer */
+ 687:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } XMC_CCU4_SLICE_CAPTURE_CONFIG_t;
+ 688:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /*Anonymous structure/union guard end*/
+ 689:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(__CC_ARM)
+ 690:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   #pragma pop
+ 691:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #elif defined(__TASKING__)
+ 692:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   #pragma warning restore
+ 693:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 694:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**************************************************************************************************
+ 695:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * API Prototypes
+ 696:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  **************************************************************************************************
+ 697:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 698:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #ifdef __cplusplus
+ 699:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** extern "C" {
+ 700:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 701:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 702:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** __STATIC_INLINE bool XMC_CCU4_IsValidModule(const XMC_CCU4_MODULE_t *const module)
+ 703:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 704:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   bool tmp = false;
+ 705:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   
+ 706:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = (module == CCU40);
+ 707:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   
+ 708:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU41) 
+ 709:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (module == CCU41);
+ 710:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 711:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 712:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU42)
+ 713:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (module == CCU42);
+ 714:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 715:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 716:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU43)
+ 717:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (module == CCU43);
+ 718:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 719:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   
+ 720:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   return tmp;  
+ 721:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } 
+ 722:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 723:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** __STATIC_INLINE bool XMC_CCU4_IsValidSlice(const XMC_CCU4_SLICE_t *const slice)
+ 724:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+ 725:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   bool tmp = false;
+ 726:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   
+ 727:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = (slice == CCU40_CC40);
+ 728:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU40_CC41)  
+ 729:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU40_CC41);
+ 730:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 731:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU40_CC42)  
+ 732:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU40_CC42);
+ 733:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 734:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU40_CC43)  
+ 735:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU40_CC43);
+ 736:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 737:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU41)  
+ 738:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU41_CC40);
+ 739:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU41_CC41)  
+ 740:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU41_CC41);
+ 741:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 742:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU41_CC42)  
+ 743:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU41_CC42);
+ 744:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 745:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU41_CC43)  
+ 746:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU41_CC43);
+ 747:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 748:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif 
+ 749:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU42)  
+ 750:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU42_CC40);
+ 751:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU42_CC41)  
+ 752:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU42_CC41);
+ 753:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 754:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU42_CC42)  
+ 755:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU42_CC42);
+ 756:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 757:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU42_CC43)  
+ 758:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU42_CC43);
+ 759:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 760:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 761:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU43)  
+ 762:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU43_CC40);
+ 763:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU43_CC41)  
+ 764:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU43_CC41);
+ 765:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 766:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU43_CC42)  
+ 767:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU43_CC42);
+ 768:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 769:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #if defined(CCU43_CC43)  
+ 770:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   tmp = tmp || (slice == CCU43_CC43);
+ 771:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif
+ 772:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** #endif 
+ 773:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   
+ 774:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   return tmp;  
+ 775:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** } 
+ 776:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 777:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 778:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @param module Constant pointer to CCU4 module
+ 779:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @param mcs_action multi-channel shadow transfer request configuration
+ 780:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @return <BR>
+ 781:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    None<BR>
+ 782:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 783:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Description:</b><br>
+ 784:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Initialization of global register GCTRL.<br>\n
+ 785:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  As part of module initialization, behaviour of the module upon detection
+ 786:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Multi-Channel Mode trigger is configured. Will also invoke the XMC_CCU4_EnableModule().
+ 787:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  The API call would bring up the required CCU4 module and also initialize the module for
+ 788:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  the required multi-channel shadow transfer.
+ 789:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 790:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Related APIs:</b><br>
+ 791:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * XMC_CCU4_SLICE_CompareInit()<BR> XMC_CCU4_SLICE_CaptureInit().
+ 792:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 793:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** void XMC_CCU4_Init(XMC_CCU4_MODULE_t *const module, const XMC_CCU4_SLICE_MCMS_ACTION_t mcs_action);
+ 794:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 795:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 796:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @param module Constant pointer to CCU4 module
+ 797:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @param clock Choice of input clock to the module
+ 798:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @return <BR>
+ 799:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    None<BR>
+ 800:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 801:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Description:</b><br>
+ 802:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Selects the Module Clock by configuring GCTRL.PCIS bits.<BR>\n
+ 803:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  There are 3 potential clock sources. This API helps to select the required clock source.
+ 804:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Call to this API is valid after the XMC_CCU4_Init().
+ 805:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 806:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Related APIs:</b><br>
+ 807:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * None.<BR>
+ 808:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 809:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** void XMC_CCU4_SetModuleClock(XMC_CCU4_MODULE_t *const module, const XMC_CCU4_CLOCK_t clock);
+ 810:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 811:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 812:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @param module Constant pointer to CCU4 module
+ 813:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @return <BR>
+ 814:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    None<BR>
+ 815:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 816:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Description:</b><br>
+ 817:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Enables the CCU4 module and brings it to active state.<BR>\n
+ 818:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Also disables the gating of the clock signal (if applicable depending on the device being select
+ 819:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Invoke this API before any operations are done on the CCU4 module. Invoked from  XMC_CCU4_Init()
+ 820:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 821:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Related APIs:</b><br>
+ 822:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * XMC_CCU4_SetModuleClock()<BR> XMC_CCU4_DisableModule()<BR> XMC_CCU4_StartPrescaler().
+ 823:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 824:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** void XMC_CCU4_EnableModule(XMC_CCU4_MODULE_t *const module);
+ 825:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 826:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 827:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @param module Constant pointer to CCU4 module
+ 828:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @return <BR>
+ 829:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    None<BR>
+ 830:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 831:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Description:</b><br>
+ 832:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Brings the CCU4 module to reset state and enables gating of the clock signal(if applicable depen
+ 833:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * on the device being selected).<BR>\n
+ 834:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Invoke this API when a CCU4 module needs to be disabled completely.
+ 835:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * Any operation on the CCU4 module will have no effect after this API is called.
+ 836:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 837:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Related APIs:</b><br>
+ 838:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * XMC_CCU4_EnableModule()<BR> XMC_CCU4_DisableModule().
+ 839:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 840:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** void XMC_CCU4_DisableModule(XMC_CCU4_MODULE_t *const module);
+ 841:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** 
+ 842:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** /**
+ 843:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @param module Constant pointer to CCU4 module
+ 844:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * @return <BR>
+ 845:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *    None<BR>
+ 846:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 847:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Description:</b><br>
+ 848:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Starts the prescaler and restores clocks to the timer slices, by setting GIDLC.SPRB bit.<BR>\n
+ 849:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  Once the input to the prescaler has been chosen and the prescaler divider of all slices program
+ 850:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  the prescaler itself may be started. Invoke this  API after XMC_CCU4_Init()
+ 851:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *  (Mandatory to fully initialize the module).Directly accessed register is GIDLC.
+ 852:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  *
+ 853:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * \par<b>Related APIs:</b><br>
+ 854:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * XMC_CCU4_Init()<BR> XMC_CCU4_EnableClock()<BR> XMC_CCU4_DisableClock()<BR> XMC_CCU4_StartPrescal
+ 855:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  * XMC_CCU4_StopPrescaler().
+ 856:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****  */
+ 857:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** __STATIC_INLINE void XMC_CCU4_StartPrescaler(XMC_CCU4_MODULE_t *const module)
+ 858:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** {
+  25              	 .loc 1 858 0
+  26              	 .cfi_startproc
+  27 0000 80B5     	 push {r7,lr}
+  28              	.LCFI0:
+  29              	 .cfi_def_cfa_offset 8
+  30              	 .cfi_offset 7,-8
+  31              	 .cfi_offset 14,-4
+  32 0002 82B0     	 sub sp,sp,#8
+  33              	.LCFI1:
+  34              	 .cfi_def_cfa_offset 16
+  35 0004 00AF     	 add r7,sp,#0
+  36              	.LCFI2:
+  37              	 .cfi_def_cfa_register 7
+  38 0006 7860     	 str r0,[r7,#4]
+ 859:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   XMC_ASSERT("XMC_CCU4_StartPrescaler:Invalid Module Pointer", XMC_CCU4_IsValidModule(module));
+ 860:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h ****   module->GIDLC |= (uint32_t) CCU4_GIDLC_SPRB_Msk;
+  39              	 .loc 1 860 0
+  40 0008 7B68     	 ldr r3,[r7,#4]
+  41 000a DB68     	 ldr r3,[r3,#12]
+  42 000c 8022     	 mov r2,#128
+  43 000e 5200     	 lsl r2,r2,#1
+  44 0010 1A43     	 orr r2,r3
+  45 0012 7B68     	 ldr r3,[r7,#4]
+  46 0014 DA60     	 str r2,[r3,#12]
+ 861:C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc\xmc_ccu4.h **** }
+  47              	 .loc 1 861 0
+  48 0016 BD46     	 mov sp,r7
+  49 0018 02B0     	 add sp,sp,#8
+  50              	 
+  51 001a 80BD     	 pop {r7,pc}
+  52              	 .cfi_endproc
+  53              	.LFE41:
+  55              	 .section .text.GLOBAL_CCU4_GetAppVersion,"ax",%progbits
+  56              	 .align 2
+  57              	 .global GLOBAL_CCU4_GetAppVersion
+  58              	 .code 16
+  59              	 .thumb_func
+  61              	GLOBAL_CCU4_GetAppVersion:
+  62              	.LFB93:
+  63              	 .file 2 "../Dave/Generated/GLOBAL_CCU4/global_ccu4.c"
+   1:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /**
+   2:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * @file global_ccu4.c
+   3:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * @date 2016-02-10
+   4:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+   5:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * NOTE:
+   6:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * This file is generated by DAVE. Any manual modification done to this file will be lost when the 
+   7:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+   8:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * @cond
+   9:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  **************************************************************************************************
+  10:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * GLOBAL_CCU4 v4.1.12 - Configures the global properties of CCU4x peripheral instance.
+  11:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  12:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * Copyright (c) 2016, Infineon Technologies AG
+  13:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * All rights reserved.
+  14:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  15:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  16:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * following conditions are met:
+  17:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  18:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *   Redistributions of source code must retain the above copyright notice, this list of conditions
+  19:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *   disclaimer.
+  20:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  21:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *   Redistributions in binary form must reproduce the above copyright notice, this list of conditi
+  22:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *   following disclaimer in the documentation and/or other materials provided with the distributio
+  23:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  24:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *   Neither the name of the copyright holders nor the names of its contributors may be used to end
+  25:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *   products derived from this software without specific prior written permission.
+  26:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  27:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  28:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  29:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  30:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  31:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  32:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  33:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  34:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  35:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  36:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * with Infineon Technologies AG (dave@infineon.com).
+  37:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  **************************************************************************************************
+  38:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  39:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * Change History
+  40:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * --------------
+  41:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  42:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * 2015-02-16:
+  43:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *     - Initial version<br>
+  44:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  45:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * @endcond
+  46:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  *
+  47:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  */
+  48:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /**************************************************************************************************
+  49:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * HEADER FILES
+  50:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  **************************************************************************************************
+  51:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  52:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** #include "global_ccu4.h"
+  53:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  54:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /**************************************************************************************************
+  55:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * MACROS
+  56:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  **************************************************************************************************
+  57:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  58:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /**************************************************************************************************
+  59:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * LOCAL DATA
+  60:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  **************************************************************************************************
+  61:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  
+  62:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /**************************************************************************************************
+  63:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * LOCAL ROUTINES
+  64:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  **************************************************************************************************
+  65:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  66:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /**************************************************************************************************
+  67:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  * API IMPLEMENTATION
+  68:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****  **************************************************************************************************
+  69:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /* Returns the version of the GLOBAL_CCU4 APP. */
+  70:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** DAVE_APP_VERSION_t GLOBAL_CCU4_GetAppVersion(void)
+  71:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** {
+  64              	 .loc 2 71 0
+  65              	 .cfi_startproc
+  66 0000 80B5     	 push {r7,lr}
+  67              	.LCFI3:
+  68              	 .cfi_def_cfa_offset 8
+  69              	 .cfi_offset 7,-8
+  70              	 .cfi_offset 14,-4
+  71 0002 82B0     	 sub sp,sp,#8
+  72              	.LCFI4:
+  73              	 .cfi_def_cfa_offset 16
+  74 0004 00AF     	 add r7,sp,#0
+  75              	.LCFI5:
+  76              	 .cfi_def_cfa_register 7
+  72:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   DAVE_APP_VERSION_t version;
+  73:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  74:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   version.major = GLOBAL_CCU4_MAJOR_VERSION;
+  77              	 .loc 2 74 0
+  78 0006 3B1C     	 mov r3,r7
+  79 0008 0422     	 mov r2,#4
+  80 000a 1A70     	 strb r2,[r3]
+  75:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   version.minor = GLOBAL_CCU4_MINOR_VERSION;
+  81              	 .loc 2 75 0
+  82 000c 3B1C     	 mov r3,r7
+  83 000e 0122     	 mov r2,#1
+  84 0010 5A70     	 strb r2,[r3,#1]
+  76:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   version.patch = GLOBAL_CCU4_PATCH_VERSION;
+  85              	 .loc 2 76 0
+  86 0012 3B1C     	 mov r3,r7
+  87 0014 0C22     	 mov r2,#12
+  88 0016 9A70     	 strb r2,[r3,#2]
+  77:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  78:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   return version;
+  89              	 .loc 2 78 0
+  90 0018 3B1D     	 add r3,r7,#4
+  91 001a 3A1C     	 mov r2,r7
+  92 001c 1188     	 ldrh r1,[r2]
+  93 001e 1980     	 strh r1,[r3]
+  94 0020 9278     	 ldrb r2,[r2,#2]
+  95 0022 9A70     	 strb r2,[r3,#2]
+  96 0024 3A1D     	 add r2,r7,#4
+  97 0026 0023     	 mov r3,#0
+  98 0028 1178     	 ldrb r1,[r2]
+  99 002a FF20     	 mov r0,#255
+ 100 002c 0140     	 and r1,r0
+ 101 002e FF20     	 mov r0,#255
+ 102 0030 8343     	 bic r3,r0
+ 103 0032 0B43     	 orr r3,r1
+ 104 0034 5178     	 ldrb r1,[r2,#1]
+ 105 0036 FF20     	 mov r0,#255
+ 106 0038 0140     	 and r1,r0
+ 107 003a 0902     	 lsl r1,r1,#8
+ 108 003c 0648     	 ldr r0,.L4
+ 109 003e 0340     	 and r3,r0
+ 110 0040 0B43     	 orr r3,r1
+ 111 0042 9278     	 ldrb r2,[r2,#2]
+ 112 0044 FF21     	 mov r1,#255
+ 113 0046 0A40     	 and r2,r1
+ 114 0048 1204     	 lsl r2,r2,#16
+ 115 004a 0449     	 ldr r1,.L4+4
+ 116 004c 0B40     	 and r3,r1
+ 117 004e 1343     	 orr r3,r2
+  79:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** }
+ 118              	 .loc 2 79 0
+ 119 0050 181C     	 mov r0,r3
+ 120 0052 BD46     	 mov sp,r7
+ 121 0054 02B0     	 add sp,sp,#8
+ 122              	 
+ 123 0056 80BD     	 pop {r7,pc}
+ 124              	.L5:
+ 125              	 .align 2
+ 126              	.L4:
+ 127 0058 FF00FFFF 	 .word -65281
+ 128 005c FFFF00FF 	 .word -16711681
+ 129              	 .cfi_endproc
+ 130              	.LFE93:
+ 132              	 .section .text.GLOBAL_CCU4_Init,"ax",%progbits
+ 133              	 .align 2
+ 134              	 .global GLOBAL_CCU4_Init
+ 135              	 .code 16
+ 136              	 .thumb_func
+ 138              	GLOBAL_CCU4_Init:
+ 139              	.LFB94:
+  80:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  81:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** /* Initializes the slice with the generated configuration */
+  82:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** GLOBAL_CCU4_STATUS_t GLOBAL_CCU4_Init(GLOBAL_CCU4_t* handle)
+  83:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** {
+ 140              	 .loc 2 83 0
+ 141              	 .cfi_startproc
+ 142 0000 80B5     	 push {r7,lr}
+ 143              	.LCFI6:
+ 144              	 .cfi_def_cfa_offset 8
+ 145              	 .cfi_offset 7,-8
+ 146              	 .cfi_offset 14,-4
+ 147 0002 82B0     	 sub sp,sp,#8
+ 148              	.LCFI7:
+ 149              	 .cfi_def_cfa_offset 16
+ 150 0004 00AF     	 add r7,sp,#0
+ 151              	.LCFI8:
+ 152              	 .cfi_def_cfa_register 7
+ 153 0006 7860     	 str r0,[r7,#4]
+  84:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   XMC_ASSERT("GLOBAL_CCU4_Init:NULL handler", (NULL != handle));
+  85:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  86:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   if (false == handle->is_initialized)
+ 154              	 .loc 2 86 0
+ 155 0008 7B68     	 ldr r3,[r7,#4]
+ 156 000a 5B7B     	 ldrb r3,[r3,#13]
+ 157 000c 0122     	 mov r2,#1
+ 158 000e 5340     	 eor r3,r2
+ 159 0010 DBB2     	 uxtb r3,r3
+ 160 0012 002B     	 cmp r3,#0
+ 161 0014 0FD0     	 beq .L7
+  87:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   {
+  88:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****     /* Enable CCU4 module */
+  89:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****     XMC_CCU4_Init(handle->module_ptr,handle->mcs_action);
+ 162              	 .loc 2 89 0
+ 163 0016 7B68     	 ldr r3,[r7,#4]
+ 164 0018 9A68     	 ldr r2,[r3,#8]
+ 165 001a 7B68     	 ldr r3,[r7,#4]
+ 166 001c 1B7B     	 ldrb r3,[r3,#12]
+ 167 001e 101C     	 mov r0,r2
+ 168 0020 191C     	 mov r1,r3
+ 169 0022 FFF7FEFF 	 bl XMC_CCU4_Init
+  90:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****     /* Start the prescaler */
+  91:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****     XMC_CCU4_StartPrescaler(handle->module_ptr);
+ 170              	 .loc 2 91 0
+ 171 0026 7B68     	 ldr r3,[r7,#4]
+ 172 0028 9B68     	 ldr r3,[r3,#8]
+ 173 002a 181C     	 mov r0,r3
+ 174 002c FFF7FEFF 	 bl XMC_CCU4_StartPrescaler
+  92:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****     /* Restricts multiple initializations */
+  93:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****     handle->is_initialized = true;
+ 175              	 .loc 2 93 0
+ 176 0030 7B68     	 ldr r3,[r7,#4]
+ 177 0032 0122     	 mov r2,#1
+ 178 0034 5A73     	 strb r2,[r3,#13]
+ 179              	.L7:
+  94:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   }
+  95:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** 
+  96:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c ****   return (GLOBAL_CCU4_STATUS_SUCCESS);
+ 180              	 .loc 2 96 0
+ 181 0036 0023     	 mov r3,#0
+  97:../Dave/Generated/GLOBAL_CCU4/global_ccu4.c **** }
+ 182              	 .loc 2 97 0
+ 183 0038 181C     	 mov r0,r3
+ 184 003a BD46     	 mov sp,r7
+ 185 003c 02B0     	 add sp,sp,#8
+ 186              	 
+ 187 003e 80BD     	 pop {r7,pc}
+ 188              	 .cfi_endproc
+ 189              	.LFE94:
+ 191              	 .text
+ 192              	.Letext0:
+ 193              	 .file 3 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 194              	 .file 4 "c:\\davev4-64bit\\dave-4.3.2\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 195              	 .file 5 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/CMSIS/Infineon/XMC1100_series/Include/XMC1100.h"
+ 196              	 .file 6 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/XMCLib/inc/xmc1_scu.h"
+ 197              	 .file 7 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Dave/Generated/DAVE_Common.h"
+ 198              	 .file 8 "../Dave/Generated/GLOBAL_CCU4/global_ccu4.h"
+ 199              	 .file 9 "C:/c_root/electronics/DAVE_work_2019/pocket-nim/Libraries/CMSIS/Infineon/XMC1100_series/Include/system_XMC1100.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 global_ccu4.c
+    {standard input}:18     .text.XMC_CCU4_StartPrescaler:00000000 $t
+    {standard input}:22     .text.XMC_CCU4_StartPrescaler:00000000 XMC_CCU4_StartPrescaler
+    {standard input}:56     .text.GLOBAL_CCU4_GetAppVersion:00000000 $t
+    {standard input}:61     .text.GLOBAL_CCU4_GetAppVersion:00000000 GLOBAL_CCU4_GetAppVersion
+    {standard input}:127    .text.GLOBAL_CCU4_GetAppVersion:00000058 $d
+    {standard input}:133    .text.GLOBAL_CCU4_Init:00000000 $t
+    {standard input}:138    .text.GLOBAL_CCU4_Init:00000000 GLOBAL_CCU4_Init
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+XMC_CCU4_Init
